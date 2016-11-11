@@ -86,6 +86,6 @@ app.get('*', function (request, response) {
     response.sendFile(_path2.default.resolve(__dirname, '../build', 'index.html'));
 });
 
-var server = app.listen('80', function () {
-    console.log('Express listening on port', '80');
+var server = app.listen('3000', function () {
+    console.log('Express listening on port', '3000');
 });
