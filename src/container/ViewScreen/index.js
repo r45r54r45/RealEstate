@@ -30,9 +30,9 @@ class ViewScreen extends React.Component {
                     image: [
                         'http://landthumb.phinf.naver.net/20161110_277/atcl_photo_1478740372135OnIXk_JPEG/1e8b46d88a0281bb9eedff6ed362b763.JPG?type=m562',
                         'http://landthumb.phinf.naver.net/20161110_277/atcl_photo_1478740372212rAkCD_JPEG/99dc2e3fec8f1715a38f4524f2c1dae7.JPG?type=m562',
-                        'http://landthumb.phinf.naver.net/20161110_256/atcl_photo_14787403723479PiGA_JPEG/1f329c804207c0d49546d687e41298dc.JPG?type=m562',
-                        'http://landthumb.phinf.naver.net/20161110_166/atcl_photo_1478740372129lntOw_JPEG/bfc9011d640d76c1cfb94a08fb21532f.JPG?type=m562',
-                        'http://landthumb.phinf.naver.net/20161110_267/atcl_photo_1478740372229qyURE_JPEG/b715dfcdc3aceff8e3bbf554de14b212.JPG?type=m562'
+                        // 'http://landthumb.phinf.naver.net/20161110_256/atcl_photo_14787403723479PiGA_JPEG/1f329c804207c0d49546d687e41298dc.JPG?type=m562',
+                        // 'http://landthumb.phinf.naver.net/20161110_166/atcl_photo_1478740372129lntOw_JPEG/bfc9011d640d76c1cfb94a08fb21532f.JPG?type=m562',
+                        // 'http://landthumb.phinf.naver.net/20161110_267/atcl_photo_1478740372229qyURE_JPEG/b715dfcdc3aceff8e3bbf554de14b212.JPG?type=m562'
                     ]
 
                 },
