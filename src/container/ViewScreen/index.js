@@ -105,6 +105,9 @@ class ViewScreen extends React.Component {
                 }
             },()=>{
                 console.log("compute end")
+                setTimeout(()=>{
+                    this.refs.slider.slickNext();
+                },4000);
             })
     }
 
@@ -127,6 +130,9 @@ class ViewScreen extends React.Component {
                 this.refs.ListSlider.slickNext();
             })
         }
+        setTimeout(()=>{
+            this.refs.slider.slickNext();
+        },4000);
     }
 
     render() {
@@ -137,8 +143,6 @@ class ViewScreen extends React.Component {
             beforeChange: this.onMainSlideEnd,
             slidesToShow: 1,
             slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 4000,
             lazyLoad: false
         };
         var ListSettings = {
