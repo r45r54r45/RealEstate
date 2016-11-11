@@ -254,7 +254,11 @@ class ViewScreen extends React.Component {
                         </div>
                     </div>
                     <div className="right-area">
-                        <div className="banner-area">
+                        <div className="banner-area" onClick={()=>{
+                            localStorage.removeItem('viewMode');
+                            localStorage.removeItem('userType');
+                            location.reload()
+                        }}>
                             매물 현황
                         </div>
                         <div className="item-list-area">

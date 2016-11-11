@@ -20,13 +20,20 @@ function getUserType(){
     2. 고객
     3. 비로그인
      */
-    return 2;
+    if(!localStorage.getItem('userType')){
+        return 3;
+    }else if(localStorage.getItem('userType')=='customer'){
+        return 2;
+    }
+
 }
 
-const VIEW_PAGE='VIEW_PAGE';
-const ADMIN_PAGE='ADMIN_PAGE';
 function getPageType(){
-    return 'VIEW_PAGE';
+    if(localStorage.getItem('viewMode')){
+        return 'VIEW_PAGE';
+    }else{
+        return 'ADMIN_PAGE';
+    }
 }
 
 function getTemplate(){
@@ -45,7 +52,7 @@ function getTemplate(){
                 </Router>
             )
         case 2: //고객
-            if (getPageType() === ADMIN_PAGE) {
+            if (getPageType() === 'ADMIN_PAGE') {
                 return (
                     <Router history={browserHistory}>
                         {/*<Route path="/" component={App}>*/}
