@@ -1,0 +1,66 @@
+.AdminApp{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    .left-area{
+        width: 200px;
+        position: fixed;
+        left:0;
+        top: 0;
+        bottom: 0;
+        z-index: 1000;
+        display: block;
+        padding: 0 20px 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: #3ca2e0;
+        border-right: 1px solid #eee;
+        .info-area{
+            text-align: center;
+            padding-top: 30px;
+            #page-user{
+                color: white;
+                font-weight:200;
+                a{
+                    text-decoration: none;
+                    color: inherit;
+                    font-weight:inherit;
+                    font-family:inherit;
+                }
+            }
+        }
+        .store-list-area{
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+            li{
+                font-size: 18px;
+                color: white;
+                font-family: initial;
+                font-weight: 200;
+                margin: 10px 0;
+                cursor: pointer;
+                height: 30px;
+                a{
+                    text-decoration: none;
+                    color: inherit;
+                    font-weight:inherit;
+                    font-family:inherit;
+                }
+            }
+            li:hover{
+                font-size: 20px;
+                transition: .1s;
+            }
+        }
+    }
+    .right-area{
+        flex:1;
+        overflow-y: scroll;
+        overflow-x: scroll;
+        background-color: #ecf0f1;
+        height: 100vh;
+        margin-left:240px;
+        min-width: 400px;
+    }
+}

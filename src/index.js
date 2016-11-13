@@ -7,6 +7,10 @@ import ViewScreen from './container/ViewScreen'
 import ViewTemplate from './container/ViewTemplate'
 import Login from './container/Login'
 import NoMatch from './container/NoMatch'
+import AdminApp from './container/AdminApp'
+import StatusPage from './container/StatusPage'
+import AddStorePage from './container/AddStorePage'
+import UpdateStorePage from './container/UpdateStorePage'
 ReactDOM.render(
     (
         getTemplate()
@@ -20,11 +24,12 @@ function getUserType(){
     2. 고객
     3. 비로그인
      */
-    if(!localStorage.getItem('userType')){
-        return 3;
-    }else if(localStorage.getItem('userType')=='customer'){
-        return 2;
-    }
+    // if(!localStorage.getItem('userType')){
+    //     return 3;
+    // }else if(localStorage.getItem('userType')=='customer'){
+    //     return 2;
+    // }
+    return 1;
 
 }
 
@@ -41,14 +46,12 @@ function getTemplate(){
         case 1: //관리자
             return (
                 <Router history={browserHistory}>
-                    {/*<Route path="/" component={App}>*/}
-                    {/*<IndexRoute component={Dashboard} />*/}
-                    {/*<Route path="about" component={About}/>*/}
-                    {/*<Route path="users" component={Users}>*/}
-                    {/*<Route path="/user/:userId" component={User}/>*/}
-                    {/*</Route>*/}
-                    {/*<Route path="*" component={NoMatch}/>*/}
-                    {/*</Route>*/}
+                    <Route path="/" component={AdminApp}>
+                    <IndexRoute component={StatusPage} />
+                    <Route path="add" component={AddStorePage}/>
+                    <Route path="update/:storeId" component={UpdateStorePage} onChange={()=>{this.forceUpdate()}}/>
+                    <Route path="*" component={NoMatch}/>
+                    </Route>
                 </Router>
             )
         case 2: //고객
