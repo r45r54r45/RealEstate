@@ -7,64 +7,80 @@ class UpdateStorePage extends React.Component {
     constructor() {
         super();
         this.state = {
-            editBasic: false,
-            newItem: false,
-            editItem: false,
-            itemList: true,
+            current: 'list',
             pathName: null,
-            editData: null
+            new: {
+                type:0
+            },
+            edit:{
+                type:0
+            }
         }
         this.editBasic = this.editBasic.bind(this);
         this.newItem=this.newItem.bind(this);
         this.editItem=this.editItem.bind(this);
+        this.selectType=this.selectType.bind(this);
     }
     editBasic() {
-        this.setState(
-            {
-                editBasic: !this.state.editBasic,
-                newItem: false,
-                editItem: false,
-                itemList: this.state.editBasic
-            }
-        )
+        if(this.state.current==='basic'){
+            this.setState(
+                {
+                    current: 'list'
+                }
+            )
+        }else{
+            this.setState(
+                {
+                    current: 'basic'
+                }
+            )
+        }
+
     }
     newItem(type){
-        type.cancel=type.cancel||false;
-        this.setState(
-            {
-                editBasic: false,
-                newItem: !type.cancel,
-                editItem: false,
-                itemList: type.cancel
-            }
-        )
+        if(type.cancel){
+            this.setState(
+                {
+                    current: 'list'
+                }
+            )
+        }else{
+            this.setState(
+                {
+                    current: 'new'
+                }
+            )
+        }
+
     }
     editItem(type){
-        if(type.cancel===undefined){
-            type.cancel=false;
+        if(type.cancel){
             this.setState({
-                editData: type.data
+                current: 'list'
             })
+        }else{
+            this.setState(
+                {
+                    current: 'edit'
+                }
+            )
         }
-        this.setState(
-            {
-                editBasic: false,
-                newItem: false,
-                editItem: !type.cancel,
-                itemList: type.cancel
-            }
-        )
+
     }
     componentWillReceiveProps(){
         if(this.props.location.pathname!==this.state.pathName){
             this.setState({
                 pathName: this.props.location.pathname,
-                editBasic: false,
-                editItem: false,
-                newItem: false,
-                itemList: true
+                current: 'list'
             })
         }
+    }
+    selectType(section,type){
+        this.setState({
+            [section]:{
+                type: type
+            }
+        })
     }
     render() {
         let name = this.props.location.query.name;
@@ -74,11 +90,11 @@ class UpdateStorePage extends React.Component {
                 <h1>{name}
                     <button onClick={this.editBasic} className="editBasicButton">기본 정보 수정</button>
                 </h1>
-                <ShowHide show={!this.state.newItem}>
+                <ShowHide show={this.state.current!=='new'}>
                     <button className="newItemButton" onClick={this.newItem}>새 매물</button>
                 </ShowHide>
 
-                <ShowHide show={this.state.itemList}>
+                <ShowHide show={this.state.current==='list'}>
                     <div className="ItemList">
                         <h3>매물 리스트</h3>
                         <ul>
@@ -92,18 +108,18 @@ class UpdateStorePage extends React.Component {
                         </ul>
                     </div>
                 </ShowHide>
-                <ShowHide show={this.state.editItem}>
+                <ShowHide show={this.state.current==='edit'}>
                     <form className="newItem-area">
                         <div className="row">
                             <h4>매물 종류</h4>
-                            <input id="type" name="type" type="radio" ref={input=>this.name = input}/>
-                            <label htmlFor="type">전세</label>
+                            <input id="j_edit" name="type" type="radio" onChange={this.selectType.bind(this,'edit',1)} ref={input=>this.name = input}/>
+                            <label htmlFor="j_edit">전세</label>
 
-                            <input id="type" name="type" type="radio" ref={input=>this.name = input}/>
-                            <label htmlFor="type">매매</label>
+                            <input id="m_edit" name="type" type="radio" onChange={this.selectType.bind(this,'edit',2)} ref={input=>this.name = input}/>
+                            <label htmlFor="m_edit">매매</label>
 
-                            <input id="type" name="type" type="radio" ref={input=>this.name = input}/>
-                            <label htmlFor="type">월세</label>
+                            <input id="w_edit" name="type" type="radio" onChange={this.selectType.bind(this,'edit',3)} ref={input=>this.name = input}/>
+                            <label htmlFor="w_edit">월세</label>
                         </div>
                         <div className="row">
                             <h4>매물 제목</h4>
@@ -145,12 +161,20 @@ class UpdateStorePage extends React.Component {
                             <h4>특징</h4>
                             <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>
                         </div>
-                        <div className="row">
+                        <div className="row" style={this.state.edit.type!==2?{display:'none'}:{}}>
                             <h4>매매가</h4>
                             <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
                         </div>
-                        <div className="row">
+                        <div className="row" style={this.state.edit.type!==1?{display:'none'}:{}}>
+                            <h4>전세가</h4>
+                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                        </div>
+                        <div className="row" style={this.state.edit.type!==3?{display:'none'}:{}}>
                             <h4>보증금</h4>
+                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                        </div>
+                        <div className="row" style={this.state.edit.type!==3?{display:'none'}:{}}>
+                            <h4>월세</h4>
                             <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
                         </div>
                         <div className="row">
@@ -164,7 +188,7 @@ class UpdateStorePage extends React.Component {
                     </div>
                 </ShowHide>
 
-                <ShowHide show={this.state.editBasic}>
+                <ShowHide show={this.state.current==='basic'}>
                     <form className="editBasicForm">
                         <div className="row">
                             <label htmlFor="name">업체 이름</label>
@@ -195,18 +219,18 @@ class UpdateStorePage extends React.Component {
                         </div>
                     </form>
                 </ShowHide>
-                <ShowHide show={this.state.newItem}>
+                <ShowHide show={this.state.current==='new'}>
                     <form className="newItem-area">
                         <div className="row">
                             <h4>매물 종류</h4>
-                            <input id="type" name="type" type="radio" ref={input=>this.name = input}/>
-                            <label htmlFor="type">전세</label>
+                            <input id="j_new" name="type" type="radio" onChange={this.selectType.bind(this,'new',1)} ref={input=>this.name = input}/>
+                            <label htmlFor="j_new">전세</label>
 
-                            <input id="type" name="type" type="radio" ref={input=>this.name = input}/>
-                            <label htmlFor="type">매매</label>
+                            <input id="m_new" name="type" type="radio" onChange={this.selectType.bind(this,'new',2)} ref={input=>this.name = input}/>
+                            <label htmlFor="m_new">매매</label>
 
-                            <input id="type" name="type" type="radio" ref={input=>this.name = input}/>
-                            <label htmlFor="type">월세</label>
+                            <input id="w_new" name="type" type="radio" onChange={this.selectType.bind(this,'new',3)} ref={input=>this.name = input}/>
+                            <label htmlFor="w_new">월세</label>
                         </div>
                         <div className="row">
                             <h4>매물 제목</h4>
@@ -248,12 +272,20 @@ class UpdateStorePage extends React.Component {
                             <h4>특징</h4>
                             <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>
                         </div>
-                        <div className="row">
+                        <div className="row" style={this.state.new.type!==2?{display:'none'}:{}}>
                             <h4>매매가</h4>
                             <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
                         </div>
-                        <div className="row">
+                        <div className="row" style={this.state.new.type!==1?{display:'none'}:{}}>
+                            <h4>전세가</h4>
+                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                        </div>
+                        <div className="row" style={this.state.new.type!==3?{display:'none'}:{}}>
                             <h4>보증금</h4>
+                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                        </div>
+                        <div className="row" style={this.state.new.type!==3?{display:'none'}:{}}>
+                            <h4>월세</h4>
                             <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
                         </div>
                         <div className="row">
