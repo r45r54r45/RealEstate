@@ -29,7 +29,7 @@ function getUserType(){
     // }else if(localStorage.getItem('userType')=='customer'){
     //     return 2;
     // }
-    return 1;
+    return 2;
 
 }
 

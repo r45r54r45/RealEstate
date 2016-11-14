@@ -56,6 +56,19 @@ body {
 .ViewScreen {
   width: 100vw;
   height: 100vh;
+  position: relative;
+  .whole-page-video-area{
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+  }
   .top-area {
     width: inherit;
     height: 90%;

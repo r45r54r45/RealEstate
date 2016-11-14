@@ -1,14 +1,19 @@
 import React from 'react'
 import './style.scss'
 import Slider from 'react-slick';
+import Vimeo from '@vimeo/player';
+
 class ViewScreen extends React.Component {
     constructor() {
         super();
         this.onMainSlideEnd = this.onMainSlideEnd.bind(this);
         this.computeLists = this.computeLists.bind(this);
+        this.fireVideoPlayer = this.fireVideoPlayer.bind(this);
         this.state = {
             slideList: [],
             slideBreakpoint: [],
+            videoPlay: false,
+            currentCount: 0,
             current: {
                 data: {}
             },
@@ -84,6 +89,7 @@ class ViewScreen extends React.Component {
 
     componentDidMount() {
         this.computeLists();
+        this.timeInterval=700;
     }
 
     computeLists() {
@@ -100,39 +106,90 @@ class ViewScreen extends React.Component {
             {
                 slideBreakpoint: slideBreakPoint,
                 slideList: slideList,
-                current:{
+                current: {
                     data: this.state.data[0]
                 }
-            },()=>{
+            }, ()=> {
                 console.log("compute end")
-                setTimeout(()=>{
+                setTimeout(()=> {
                     this.refs.slider.slickNext();
-                },4000);
+                    console.log("처음거 슬라이드 완료")
+                }, this.timeInterval);
             })
     }
 
+    fireVideoPlayer() {
+        return new Promise((resolve, reject)=> {
+            /*
+             비디어 재생 로직
+             -> 매물 몇개 마다
+             -> 예를 들어 매물이 3개여도 5개 마다 재생되도록 (반복 되니까)
+             */
+            const jugi = 4;
+            let nextCount = this.state.currentCount + 1;
+            this.setState({
+                currentCount: nextCount
+            })
+            console.info("현재 재생 번호: ", nextCount);
+            if (nextCount % 4 !== 0) { //아직 fire 할때가 아니라면
+                resolve();
+            } else { //비디오 재생할 때라면
+                var options = {
+                    id: 59777392,
+                    width: 900
+                };
+                this.setState({
+                    videoPlay: true
+                }, ()=> {
+                    var player = new Vimeo('made-in-ny', options);
+                    player.setVolume(100);
+                    player.play();
+                    player.on('ended', () => {
+                        console.log('played the video!');
+                        this.setState({
+                            videoPlay: false
+                        }, ()=> {
+                            resolve();
+                        })
+                    });
+                })
+            }
+        });
+    }
+
     onMainSlideEnd(index) {
-        let nextSlideIndex = index + 1;
-        console.log('앞으로 슬라이드 될 것의 index: ', nextSlideIndex);
+        //index 는 바로 전에 지나간 슬라이드의 index 번호
+        let nextSlideIndex = index + 2;
         let findPosition = this.state.slideBreakpoint.findIndex(function (item) {
             return item === nextSlideIndex
         });
-        if (findPosition !== -1) {
-            console.log("다음걸로 가야합니다의 위치: ", findPosition)
-            if (findPosition === this.state.data.length) {
-                findPosition = 0;
+        console.log("누적에서의 위치", findPosition)
+        if (findPosition !== -1) { //다음 매물로 넘어가야한다면
+            if (findPosition === this.state.data.length) { //매물이 전체 한바퀴 돌아 끝이 났다면
+                findPosition = 0; //다시 처음으로
             }
-            this.setState({
-                current: {
-                    data: this.state.data[findPosition]
-                }
-            }, ()=> {
-                this.refs.ListSlider.slickNext();
-            })
+            setTimeout(()=> {
+                this.fireVideoPlayer().then(()=> { //비디오 재생 여부 체크
+
+                    this.setState({
+                        current: {
+                            data: this.state.data[findPosition] //해당 매물의 데이터를 채워넣는다.
+                        }
+                    }, ()=> {
+                        this.refs.ListSlider.slickNext();
+                        console.log("슬라이드 메인")
+                        this.refs.slider.slickNext();
+                        //TODO 왜 두개가 동시에 안움직임
+                        console.log("슬라이드 사이드")
+                    })
+                });
+            }, this.timeInterval)
+        } else { //현재 매물에 사진이 더 있다면
+            setTimeout(()=> {
+                console.log("슬라이드~")
+                this.refs.slider.slickNext();
+            }, this.timeInterval);
         }
-        setTimeout(()=>{
-            this.refs.slider.slickNext();
-        },4000);
     }
 
     render() {
@@ -157,6 +214,8 @@ class ViewScreen extends React.Component {
         let percent = Math.floor(parseFloat(currentData.realArea) / parseFloat(currentData.producedArea) * 1000) / 10;
         return (
             <div className="ViewScreen">
+                <div className="whole-page-video-area" id="made-in-ny"
+                     style={!this.state.videoPlay ? {display: 'none'} : {}}></div>
                 <div className="top-area">
                     <div className="left-area">
                         <div className="slide-area">
@@ -254,7 +313,7 @@ class ViewScreen extends React.Component {
                         </div>
                     </div>
                     <div className="right-area">
-                        <div className="banner-area" onClick={()=>{
+                        <div className="banner-area" onClick={()=> {
                             localStorage.removeItem('viewMode');
                             localStorage.removeItem('userType');
                             location.reload()
@@ -312,7 +371,8 @@ class ViewScreen extends React.Component {
                 </div>
                 <div className="bottom-area">
                     <img className="left" src="http://realty.mfamily.co.kr/images/footer_imgl.png" role="presentation"/>
-                    <img className="right" src="http://realty.mfamily.co.kr/images/footer_imgr.png" role="presentation"/>
+                    <img className="right" src="http://realty.mfamily.co.kr/images/footer_imgr.png"
+                         role="presentation"/>
                     <div className="marquee-wrapper">
                         <p className="marquee">안녕하세요</p>
                     </div>
