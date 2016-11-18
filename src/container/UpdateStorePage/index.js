@@ -42,7 +42,12 @@ class UpdateStorePage extends React.Component {
         let index=this.state.editTempImageList.findIndex((item)=>{
             return item.id=imageId;
         });
-        let list=this.state.editItem.deleteImageList||[];
+        let list;
+        if(this.state.editItem.deleteImageList==undefined){
+            list=[];
+        }else{
+            list=this.state.editItem.deleteImageList;
+        }
         this.setState({
             editItem: Object.assign({},this.state.editItem,{
                 deleteImageList: list.push(imageId)
