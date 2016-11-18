@@ -314,7 +314,7 @@ class UpdateStorePage extends React.Component {
                             </div>
                         </form>
                         <div className="imageList">
-                            {this.state.editTempImageList.images.map((item, index)=> {
+                            {this.state.editTempImageList.map((item, index)=> {
                                 return (
                                     <div key={index} className="imageItem" style={{backgroundImage: `url(/img/${item.url})`}}>
                                         <button onClick={this.deleteEditItemImage.bind(this, item.id)}>삭제</button>
