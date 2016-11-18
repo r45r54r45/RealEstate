@@ -17,6 +17,7 @@ class UpdateStorePage extends React.Component {
             },
             newItem: {},
             editItem: {},
+            basic:{},
             itemList: [],
             editTempImageList: []
         }
@@ -28,6 +29,7 @@ class UpdateStorePage extends React.Component {
         this.submitNew = this.submitNew.bind(this);
         this.submitEdit = this.submitEdit.bind(this);
         this.deleteEditItemImage = this.deleteEditItemImage.bind(this);
+        this.editBasicSubmit=this.editBasicSubmit.bind(this);
     }
 
     componentWillMount() {
@@ -73,7 +75,22 @@ class UpdateStorePage extends React.Component {
         })
 
     }
-
+    editBasicSubmit(){
+        alert('업로드 중입니다. 화면을 벗어나지 마세요');
+        fetch('/user?id=' + this.this.props.location.id, {
+            method: "PUT",
+            body: formDataSerialize(this.state.basic)
+        }).then(dat=>dat.json()).then(result=> {
+            console.log(result);
+            if (result.result === true) {
+                alert('업로드 성공');
+                location.reload();
+            }
+        }).catch(err=> {
+            alert('에러 발생. 관리자에게 문의해주세요');
+            console.log(err);
+        })
+    }
     submitEdit() {
         alert('업로드 중입니다. 화면을 벗어나지 마세요');
         fetch('/item?id=' + this.state.editItem.id, {
@@ -99,11 +116,14 @@ class UpdateStorePage extends React.Component {
                 }
             )
         } else {
-            this.setState(
-                {
-                    current: 'basic'
-                }
-            )
+            fetch('/user?id'+this.props.location.id).then(dat=>dat.json()).then((result)=>{
+                this.setState(
+                    {
+                        current: 'basic',
+                        basic: result.result
+                    }
+                )
+            })
         }
 
     }
@@ -338,30 +358,36 @@ class UpdateStorePage extends React.Component {
                     <form className="editBasicForm">
                         <div className="row">
                             <label htmlFor="name">업체 이름</label>
-                            <input id="name" type="text" ref={input=>this.name = input}/>
+                            <input id="name" type="text" value={this.state.basic.store_name}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'store_name')}/>
                         </div>
                         <div className="row">
                             <label htmlFor="ceo_name">대표 성함</label>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>
+                            <input id="ceo_name" type="text" value={this.state.basic.ceo_name}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'ceo_name')}/>
                         </div>
                         <div className="row">
                             <label htmlFor="id">아이디</label>
-                            <input id="id" type="text" ref={input=>this.id = input}/>
+                            <input id="id" type="text"  value={this.state.basic.login_id}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'login_id')}/>
                         </div>
                         <div className="row">
                             <label htmlFor="pw">비밀번호</label>
-                            <input id="pw" type="password" ref={input=>this.pw = input}/>
+                            <input id="pw" type="password"  value={this.state.basic.login_pw}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'login_pw')}/>
                         </div>
                         <div className="row">
                             <label htmlFor="tel">전화번호(유선)</label>
-                            <input id="tel" type="tel" ref={input=>this.tel = input}/>
+                            <input id="tel" type="tel"  value={this.state.basic.tel}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'tel')}/>
                         </div>
                         <div className="row">
                             <label htmlFor="phone">휴대폰 번호</label>
-                            <input id="phone" type="tel" ref={input=>this.phone = input}/>
+                            <input id="phone" type="tel" value={this.state.basic.phone}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'phone')}/>
                         </div>
                         <div className="row">
-                            <button>기본정보 수정</button>
+                            <button onClick={this.editBasicSubmit}>기본정보 수정</button>
                         </div>
                     </form>
                 ) : ("")}

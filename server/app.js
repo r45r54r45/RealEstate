@@ -150,11 +150,18 @@ app.get('/item', function (req, res) {
         });
     }
 });
+app.put('/user', function (request, res) {
+    var body = request.body;
+    var db = require('./mysql');
+    db.query('update User set store_name=?, ceo_name=?, login_id=?, login_pw=?, tel=?, phone=? where id=?', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone,req.query.id], function (err, result) {
+        res.json({result: true});
+    });
+});
 app.get('/user', function (req, res) {
     var db = require('./mysql');
     if(req.query.id){
         db.query('select * from User where id=?',[req.query.id],function(err, result){
-            res.json({result: result});
+            res.json({result: result[0]});
         });
     }else{
         db.query('select id, store_name from User',function(err, result){
