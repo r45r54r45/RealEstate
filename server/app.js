@@ -107,6 +107,8 @@ app.post('/item',upload.array('image'), function (req, res) {
 app.put('/item', function (req, res) {
     var db = require('./mysql');
     let itemId=req.query.id;
+    res.json(req.body);
+    return;
     req.body.deleteImageList.forEach(function(item, index){
         db.query('delete from Image where id=?',[item])
     })
