@@ -91,11 +91,11 @@ class UpdateStorePage extends React.Component {
         }else{
             fetch('/item?item='+type.data.id).then(dat=>dat.json()).then((data)=>{
                 this.setState({
-                    editItem: data.result[0]
+                    editItem: data.result
                 },()=>{
                     this.setState({
                         edit:{
-                            type: data.result[0].type
+                            type: data.result.type
                         }
                     })
                 });
