@@ -82,6 +82,37 @@ app.use('/', _express2.default.static(__dirname + '/../build'));
 //         res.json(result);
 //     });
 // })
+
+app.get('/item', function (req, res) {
+    var db = require('./mysql');
+    if(req.query.id){
+        db.query('select * from Item i join User u on i.owner = u.id where u.id=?',[req.query.id],function(err, result){
+            res.json({result: result});
+        });
+    }else{
+        res.json({result: false})
+    }
+});
+app.get('/user', function (req, res) {
+    var db = require('./mysql');
+    if(req.query.id){
+        db.query('select * from User where id=?',[req.query.id],function(err, result){
+            res.json({result: result});
+        });
+    }else{
+        db.query('select id, store_name from User',function(err, result){
+            res.json({result: result});
+        });
+    }
+});
+app.post('/user', function (request, response) {
+    var body = request.body;
+    var db = require('./mysql');
+    db.query('insert into User (store_name, ceo_name, login_id, login_pw, tel, phone) values (?,?,?,?,?,?)', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone], function (err, result) {
+        response.json({result: true});
+    });
+});
+
 app.get('*', function (request, response) {
     response.sendFile(_path2.default.resolve(__dirname, '../build', 'index.html'));
 });
