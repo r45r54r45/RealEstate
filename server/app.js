@@ -44,9 +44,7 @@ app.use(function (req, res, next) {
 
 app.use('/', _express2.default.static(__dirname + '/../build'));
 app.use('/img', _express2.default.static(__dirname + '/../image'));
-// var express = require('express')
-// var multer  = require('multer')
-// var upload = multer({ dest: 'uploads/' })
+
 // app.post('/submit', upload.single('image'), function (req, res) {
 //     var db=require('./mysql');
 //     var data = req.body;
@@ -83,7 +81,20 @@ app.use('/img', _express2.default.static(__dirname + '/../image'));
 //         res.json(result);
 //     });
 // })
+var multer  = require('multer')
+var upload = multer({ dest: 'image/' })
+app.post('/item',upload.array('image'), function (req, res) {
+    var db = require('./mysql');
+    res.json({result: req.files});
+    if(req.query.id){
 
+        // db.query('select * from Item i join User u on i.owner = u.id where u.id=?',[req.query.id],function(err, result){
+        //     res.json({result: result});
+        // });
+    }else{
+        res.json({result: false})
+    }
+});
 app.get('/item', function (req, res) {
     var db = require('./mysql');
     if(req.query.id){

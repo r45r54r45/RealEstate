@@ -14,12 +14,28 @@ class UpdateStorePage extends React.Component {
             },
             edit:{
                 type:0
-            }
+            },
+            newItem: {},
+            editItem: {}
         }
         this.editBasic = this.editBasic.bind(this);
         this.newItem=this.newItem.bind(this);
         this.editItem=this.editItem.bind(this);
         this.selectType=this.selectType.bind(this);
+        this.mapValue=this.mapValue.bind(this);
+        this.submitNew=this.submitNew.bind(this);
+    }
+    submitNew(){
+        fetch('/item?id='+this.props.location.query.id,{
+            method: "POST",
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: formDataSerialize(this.state.newItem)
+        }).then(dat=>dat.json()).then(result=>{
+            console.log(result);
+        })
+
     }
     editBasic() {
         if(this.state.current==='basic'){
@@ -82,6 +98,33 @@ class UpdateStorePage extends React.Component {
             }
         })
     }
+
+    mapValue(input,area,type){
+        if(type==="file"){
+            let files=input.files;
+            let length=input.files.length;
+            for(let i=0; i<length; i++){
+                console.log(files[i]);
+            }
+            this.setState({
+                [area]: Object.assign(this.state[area],{
+                    image: files
+                })
+            })
+        }else if(type==="type"){
+            this.setState({
+                [area]: Object.assign(this.state[area],{
+                    [type]: input
+                })
+            })
+        }else{
+            this.setState({
+                [area]: Object.assign(this.state[area],{
+                    [type]: input.value
+                })
+            })
+        }
+    }
     render() {
         let name = this.props.location.query.name;
         let itemList=["신시가지 아파트","센트럴파크 푸르지오", "더샵4차"];
@@ -123,59 +166,59 @@ class UpdateStorePage extends React.Component {
                         </div>
                         <div className="row">
                             <h4>매물 제목</h4>
-                            <input id="name" value={this.state.editData} type="text" ref={input=>this.name = input}/>
+                            <input id="name" value={this.state.editItem.title} type="text" onChange={e=>this.mapValue(e.target,'editItem','title')}/>
                         </div>
                         <div className="row">
                             <h4>위치</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>
+                            <input id="ceo_name" value={this.state.editItem.location} type="text" onChange={e=>this.mapValue(e.target,'editItem','location')}/>
                         </div>
                         <div className="row">
                             <h4>공급 면적</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>㎡
+                            <input id="ceo_name" value={this.state.editItem.produced_area} type="text" ref={input=>this.ceo_name = input}/>㎡
                         </div>
                         <div className="row">
                             <h4>전용 면적</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>㎡
+                            <input id="ceo_name" value={this.state.editItem.real_area} type="text" ref={input=>this.ceo_name = input}/>㎡
                         </div>
                         <div className="row">
                             <h4>해당 층</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>층
+                            <input id="ceo_name" value={this.state.editItem.floor} type="text" ref={input=>this.ceo_name = input}/>층
                         </div>
                         <div className="row">
                             <h4>전체 층</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>층
+                            <input id="ceo_name" value={this.state.editItem.total_floor} type="text" ref={input=>this.ceo_name = input}/>층
                         </div>
                         <div className="row">
                             <h4>방수</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>개
+                            <input id="ceo_name" value={this.state.editItem.room} type="text" ref={input=>this.ceo_name = input}/>개
                         </div>
                         <div className="row">
                             <h4>욕실 수</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>개
+                            <input id="ceo_name" value={this.state.editItem.toilet} type="text" ref={input=>this.ceo_name = input}/>개
                         </div>
                         <div className="row">
                             <h4>입주 가능일</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>
+                            <input id="ceo_name" value={this.state.editItem.available} type="text" ref={input=>this.ceo_name = input}/>
                         </div>
                         <div className="row">
                             <h4>특징</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>
+                            <input id="ceo_name" value={this.state.editItem.specification} type="text" ref={input=>this.ceo_name = input}/>
                         </div>
                         <div className="row" style={this.state.edit.type!==2?{display:'none'}:{}}>
                             <h4>매매가</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" value={this.state.editItem.m_price} type="text" ref={input=>this.ceo_name = input}/>원
                         </div>
                         <div className="row" style={this.state.edit.type!==1?{display:'none'}:{}}>
                             <h4>전세가</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" value={this.state.editItem.j_price} type="text" ref={input=>this.ceo_name = input}/>원
                         </div>
                         <div className="row" style={this.state.edit.type!==3?{display:'none'}:{}}>
                             <h4>보증금</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" value={this.state.editItem.b_price} type="text" ref={input=>this.ceo_name = input}/>원
                         </div>
                         <div className="row" style={this.state.edit.type!==3?{display:'none'}:{}}>
                             <h4>월세</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" value={this.state.editItem.w_price} type="text" ref={input=>this.ceo_name = input}/>원
                         </div>
                         <div className="row">
                             <h4>사진</h4>
@@ -220,81 +263,81 @@ class UpdateStorePage extends React.Component {
                     </form>
                 </ShowHide>
                 <ShowHide show={this.state.current==='new'}>
-                    <form className="newItem-area">
+                    <form className="newItem-area" id="newItemForm" method="post" >
                         <div className="row">
                             <h4>매물 종류</h4>
-                            <input id="j_new" name="type" type="radio" onChange={this.selectType.bind(this,'new',1)} ref={input=>this.name = input}/>
+                            <input id="j_new" name="type" type="radio" onChange={e=>{this.mapValue(1,'newItem','type');this.selectType('new',1)}}/>
                             <label htmlFor="j_new">전세</label>
 
-                            <input id="m_new" name="type" type="radio" onChange={this.selectType.bind(this,'new',2)} ref={input=>this.name = input}/>
+                            <input id="m_new" name="type" type="radio" onChange={e=>{this.mapValue(2,'newItem','type');this.selectType('new',2)}}/>
                             <label htmlFor="m_new">매매</label>
 
-                            <input id="w_new" name="type" type="radio" onChange={this.selectType.bind(this,'new',3)} ref={input=>this.name = input}/>
+                            <input id="w_new" name="type" type="radio" onChange={e=>{this.mapValue(3,'newItem','type');this.selectType('new',3)}}/>
                             <label htmlFor="w_new">월세</label>
                         </div>
                         <div className="row">
                             <h4>매물 제목</h4>
-                            <input id="name" type="text" ref={input=>this.name = input}/>
+                            <input id="name" type="text" onChange={e=>this.mapValue(e.target,'newItem','title')}/>
                         </div>
                         <div className="row">
                             <h4>위치</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>
+                            <input id="ceo_name" type="text" onChange={e=>this.mapValue(e.target,'newItem','location')}/>
                         </div>
                         <div className="row">
                             <h4>공급 면적</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>㎡
+                            <input id="ceo_name" type="text"  onChange={e=>this.mapValue(e.target,'newItem','produced_area')}/>㎡
                         </div>
                         <div className="row">
                             <h4>전용 면적</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>㎡
+                            <input id="ceo_name" type="text"  onChange={e=>this.mapValue(e.target,'newItem','real_area')}/>㎡
                         </div>
                         <div className="row">
                             <h4>해당 층</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>층
+                            <input id="ceo_name" type="text"  onChange={e=>this.mapValue(e.target,'newItem','floor')}/>층
                         </div>
                         <div className="row">
                             <h4>전체 층</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>층
+                            <input id="ceo_name" type="text"  onChange={e=>this.mapValue(e.target,'newItem','total_floor')}/>층
                         </div>
                         <div className="row">
                             <h4>방수</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>개
+                            <input id="ceo_name" type="text" onChange={e=>this.mapValue(e.target,'newItem','room')}/>개
                         </div>
                         <div className="row">
                             <h4>욕실 수</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>개
+                            <input id="ceo_name" type="text" onChange={e=>this.mapValue(e.target,'newItem','toilet')}/>개
                         </div>
                         <div className="row">
                             <h4>입주 가능일</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>
+                            <input id="ceo_name" type="text"  onChange={e=>this.mapValue(e.target,'newItem','available')}/>
                         </div>
                         <div className="row">
                             <h4>특징</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>
+                            <input id="ceo_name" type="text"  onChange={e=>this.mapValue(e.target,'newItem','specification')}/>
                         </div>
                         <div className="row" style={this.state.new.type!==2?{display:'none'}:{}}>
                             <h4>매매가</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" type="text" onChange={e=>this.mapValue(e.target,'newItem','m_price')}/>원
                         </div>
                         <div className="row" style={this.state.new.type!==1?{display:'none'}:{}}>
                             <h4>전세가</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" type="text" onChange={e=>this.mapValue(e.target,'newItem','j_price')}/>원
                         </div>
                         <div className="row" style={this.state.new.type!==3?{display:'none'}:{}}>
                             <h4>보증금</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" type="text"  onChange={e=>this.mapValue(e.target,'newItem','b_price')}/>원
                         </div>
                         <div className="row" style={this.state.new.type!==3?{display:'none'}:{}}>
                             <h4>월세</h4>
-                            <input id="ceo_name" type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" type="text"  onChange={e=>this.mapValue(e.target,'newItem','w_price')}/>원
                         </div>
                         <div className="row">
                             <h4>사진</h4>
-                            <input type="file" accept="image/x-png,image/gif,image/jpeg" multiple/>
+                            <input type="file" accept="image/x-png,image/gif,image/jpeg" onChange={e=>this.mapValue(e.target,'newItem','file')} multiple/>
                         </div>
                     </form>
                     <div>
-                        <button id="newItemUploadButton">업로드</button>
+                        <button id="newItemUploadButton" onClick={this.submitNew}>업로드</button>
                         <button style={{marginLeft: '10px'}} id="newItemUploadButton" onClick={this.newItem.bind(this,{cancel:true})}>취소</button>
                     </div>
                 </ShowHide>
@@ -302,5 +345,11 @@ class UpdateStorePage extends React.Component {
         );
     }
 }
-
+function formDataSerialize(data){
+    let form=new FormData();
+    for(let key in data){
+        form.append(key, data[key]);
+    }
+    return form;
+}
 export default UpdateStorePage;
