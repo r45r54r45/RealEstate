@@ -54,6 +54,9 @@
                 border-bottom: 1px solid white;
             }
             li{
+                :last-child{
+                    border-bottom: none;
+                }
                 display: flex;
                 align-items: center;
                 font-size: 18px;
@@ -74,6 +77,9 @@
             li:hover{
                 font-size: 20px;
                 transition: .1s;
+            }
+            li:active{
+                text-decoration: none;
             }
         }
     }

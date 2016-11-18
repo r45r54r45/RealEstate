@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 import './style.scss'
+import logo from './logo.png';
 import Hangul from 'hangul-js';
 
 class AdminApp extends React.Component {
@@ -39,6 +40,7 @@ class AdminApp extends React.Component {
             <div className="AdminApp">
                 <div className="left-area">
                     <div className="info-area">
+                        <img src={logo} style={{width: '80%'}}/>
                         <h1 id="page-user"><Link to="/"> 관리자</Link></h1>
                     </div>
                     <ul className="store-list-area">
