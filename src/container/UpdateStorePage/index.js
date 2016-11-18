@@ -7,7 +7,7 @@ class UpdateStorePage extends React.Component {
     constructor() {
         super();
         this.state = {
-            current: 'list',
+            current: 'edit',
             pathName: null,
             new: {
                 type:0
@@ -200,57 +200,66 @@ class UpdateStorePage extends React.Component {
                         </div>
                         <div className="row">
                             <h4>공급 면적</h4>
-                            <input id="ceo_name" value={this.state.editItem.produced_area} type="text" ref={input=>this.ceo_name = input}/>㎡
+                            <input id="ceo_name" value={this.state.editItem.produced_area} type="text" onChange={e=>this.mapValue(e.target,'editItem','produced_area')}/>㎡
                         </div>
                         <div className="row">
                             <h4>전용 면적</h4>
-                            <input id="ceo_name" value={this.state.editItem.real_area} type="text" ref={input=>this.ceo_name = input}/>㎡
+                            <input id="ceo_name" value={this.state.editItem.real_area} type="text" onChange={e=>this.mapValue(e.target,'editItem','real_area')}/>㎡
                         </div>
                         <div className="row">
                             <h4>해당 층</h4>
-                            <input id="ceo_name" value={this.state.editItem.floor} type="text" ref={input=>this.ceo_name = input}/>층
+                            <input id="ceo_name" value={this.state.editItem.floor} type="text" onChange={e=>this.mapValue(e.target,'editItem','floor')}/>층
                         </div>
                         <div className="row">
                             <h4>전체 층</h4>
-                            <input id="ceo_name" value={this.state.editItem.total_floor} type="text" ref={input=>this.ceo_name = input}/>층
+                            <input id="ceo_name" value={this.state.editItem.total_floor} type="text" onChange={e=>this.mapValue(e.target,'editItem','total_floor')}/>층
                         </div>
                         <div className="row">
                             <h4>방수</h4>
-                            <input id="ceo_name" value={this.state.editItem.room} type="text" ref={input=>this.ceo_name = input}/>개
+                            <input id="ceo_name" value={this.state.editItem.room} type="text" onChange={e=>this.mapValue(e.target,'editItem','room')}/>개
                         </div>
                         <div className="row">
                             <h4>욕실 수</h4>
-                            <input id="ceo_name" value={this.state.editItem.toilet} type="text" ref={input=>this.ceo_name = input}/>개
+                            <input id="ceo_name" value={this.state.editItem.toilet} type="text" onChange={e=>this.mapValue(e.target,'editItem','toilet')}/>개
                         </div>
                         <div className="row">
                             <h4>입주 가능일</h4>
-                            <input id="ceo_name" value={this.state.editItem.available} type="text" ref={input=>this.ceo_name = input}/>
+                            <input id="ceo_name" value={this.state.editItem.available} type="text" onChange={e=>this.mapValue(e.target,'editItem','available')}/>
                         </div>
                         <div className="row">
                             <h4>특징</h4>
-                            <input id="ceo_name" value={this.state.editItem.specification} type="text" ref={input=>this.ceo_name = input}/>
+                            <input id="ceo_name" value={this.state.editItem.specification} type="text" onChange={e=>this.mapValue(e.target,'editItem','specification')}/>
                         </div>
                         <div className="row" style={this.state.edit.type!==2?{display:'none'}:{}}>
                             <h4>매매가</h4>
-                            <input id="ceo_name" value={this.state.editItem.m_price} type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" value={this.state.editItem.m_price} type="text" onChange={e=>this.mapValue(e.target,'editItem','m_price')}/>원
                         </div>
                         <div className="row" style={this.state.edit.type!==1?{display:'none'}:{}}>
                             <h4>전세가</h4>
-                            <input id="ceo_name" value={this.state.editItem.j_price} type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" value={this.state.editItem.j_price} type="text" onChange={e=>this.mapValue(e.target,'editItem','j_price')}/>원
                         </div>
                         <div className="row" style={this.state.edit.type!==3?{display:'none'}:{}}>
                             <h4>보증금</h4>
-                            <input id="ceo_name" value={this.state.editItem.b_price} type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" value={this.state.editItem.b_price} type="text" onChange={e=>this.mapValue(e.target,'editItem','b_price')}/>원
                         </div>
                         <div className="row" style={this.state.edit.type!==3?{display:'none'}:{}}>
                             <h4>월세</h4>
-                            <input id="ceo_name" value={this.state.editItem.w_price} type="text" ref={input=>this.ceo_name = input}/>원
+                            <input id="ceo_name" value={this.state.editItem.w_price} type="text" onChange={e=>this.mapValue(e.target,'editItem','w_price')}/>원
                         </div>
                         <div className="row">
-                            <h4>사진</h4>
+                            <h4>사진 추가</h4>
                             <input type="file" accept="image/x-png,image/gif,image/jpeg" multiple/>
                         </div>
                     </form>
+                    <div className="imageList">
+                        {this.state.editItem.images.map((item, index)=>{
+                            return (
+                                <div className="imageItem" style={{background: `url(/img/${item.url})`}}>
+                                    <button>삭제</button>
+                                </div>
+                            )
+                        })}
+                    </div>
                     <div>
                         <button id="newItemUploadButton">수정</button>
                         <button style={{marginLeft: '10px'}} id="newItemUploadButton" onClick={this.editItem.bind(this,{cancel:true})}>취소</button>

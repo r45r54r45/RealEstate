@@ -94,4 +94,18 @@
             }
         }
     }
+    .imageList{
+        display: flex;
+        flex-direction: row;
+        .imageItem{
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-position: center;
+            background-size: cover;
+        }
+    }
 }
