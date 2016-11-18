@@ -1,6 +1,57 @@
 import React from 'react'
 import './style.scss'
 class AddStorePage extends React.Component {
+    constructor(){
+        super();
+        this.submit=this.submit.bind(this);
+    }
+    submit() {
+        if (this.store_name.value == "") {
+            this.store_name.focus();
+            return;
+        } else if (this.ceo_name.value == "") {
+            this.store_name.focus();
+            return;
+
+        } else if (this.login_id.value == "") {
+            this.login_id.focus();
+            return;
+
+        } else if (this.login_pw.value == "") {
+            this.login_pw.focus();
+            return;
+
+        } else if (this.login_pw.value !== this.pw2.value) {
+            this.pw2.focus();
+            return;
+
+        } else if (this.tel.value == "") {
+            this.tel.focus();
+            return;
+
+        } else if (this.phone.value == "") {
+            this.phone.focus();
+            return;
+
+        }
+        fetch('/user',{
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'Application/json'
+            }),
+            body: JSON.stringify({
+                store_name: this.store_name.value,
+                ceo_name: this.ceo_name.value,
+                login_id: this.login_id.value,
+                login_pw: this.login_pw.value,
+                tel: this.tel.value,
+                phone: this.phone.value
+            })
+        }).then(()=> {
+            alert('업체가 추가되었습니다');
+            location.href = "/";
+        })
+    }
     render() {
         return (
             <div className="AddStorePage">
@@ -8,7 +59,7 @@ class AddStorePage extends React.Component {
                 <div className="form">
                     <div className="row">
                         <label htmlFor="name">업체 이름</label>
-                        <input id="name" type="text" ref={input=>this.name = input}/>
+                        <input id="name" type="text" ref={input=>this.store_name = input}/>
                     </div>
                     <div className="row">
                         <label htmlFor="ceo_name">대표 성함</label>
@@ -16,11 +67,11 @@ class AddStorePage extends React.Component {
                     </div>
                     <div className="row">
                         <label htmlFor="id">아이디</label>
-                        <input id="id" type="text" ref={input=>this.id = input}/>
+                        <input id="id" type="text" ref={input=>this.login_id = input}/>
                     </div>
                     <div className="row">
                         <label htmlFor="pw">비밀번호</label>
-                        <input id="pw" type="password" ref={input=>this.pw = input}/>
+                        <input id="pw" type="password" ref={input=>this.login_pw = input}/>
                     </div>
                     <div className="row">
                         <label htmlFor="pw2">비밀번호 확인</label>
@@ -35,7 +86,7 @@ class AddStorePage extends React.Component {
                         <input id="phone" type="tel" ref={input=>this.phone = input}/>
                     </div>
                     <div className="row">
-                        <button>업로드</button>
+                        <button onClick={this.submit}>업로드</button>
                     </div>
                 </div>
             </div>
