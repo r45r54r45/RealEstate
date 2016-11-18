@@ -122,6 +122,9 @@ app.put('/item',upload.array('image'), function (req, res) {
     db.query('update Item set ' +
         ' type=?, title=?, location=?, produced_area=?, real_area=?, floor=?, total_floor=?, room=?, toilet=?, specification=?, available=?, j_price=?, m_price=?, b_price=?, w_price=?)' +
         ' where id=?',[toInt(data.type), data.title, data.location, toFloat(data.produced_area), toFloat(data.real_area), toInt(data.floor), toInt(data.total_floor), toInt(data.room), toInt(data.toilet), data.specification, data.available, data.j_price||null, data.m_price||null, data.b_price||null, data.w_price||null, toInt(itemId)],function(err, result){
+        if(err){
+            res.json(err);
+        }
         for(var key in req.files){
             var dat=req.files[key];
             db.query("insert into Image (url, item) values (?,?)",[dat.filename,itemId],function(err, result){
