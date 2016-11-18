@@ -85,13 +85,21 @@ class UpdateStorePage extends React.Component {
     editItem(type){
         if(type.cancel){
             this.setState({
-                current: 'list'
+                current: 'list',
+                editItem: {}
             })
         }else{
             fetch('/item?item='+type.data.id).then(dat=>dat.json()).then((data)=>{
                 this.setState({
                     editItem: data.result[0]
-                })
+                },()=>{
+                    this.setState({
+                        edit:{
+                            type: data.result[0].type
+                        }
+                    })
+                });
+
             })
             this.setState(
                 {
@@ -173,13 +181,13 @@ class UpdateStorePage extends React.Component {
                     <form className="newItem-area">
                         <div className="row">
                             <h4>매물 종류</h4>
-                            <input id="j_edit" name="type" type="radio" onChange={this.selectType.bind(this,'edit',1)} ref={input=>this.name = input}/>
+                            <input id="j_edit" name="type" type="radio" onChange={this.selectType.bind(this,'edit',1)} checked={this.state.editItem.type==1}/>
                             <label htmlFor="j_edit">전세</label>
 
-                            <input id="m_edit" name="type" type="radio" onChange={this.selectType.bind(this,'edit',2)} ref={input=>this.name = input}/>
+                            <input id="m_edit" name="type" type="radio" onChange={this.selectType.bind(this,'edit',2)} checked={this.state.editItem.type==2}/>
                             <label htmlFor="m_edit">매매</label>
 
-                            <input id="w_edit" name="type" type="radio" onChange={this.selectType.bind(this,'edit',3)} ref={input=>this.name = input}/>
+                            <input id="w_edit" name="type" type="radio" onChange={this.selectType.bind(this,'edit',3)} checked={this.state.editItem.type==3}/>
                             <label htmlFor="w_edit">월세</label>
                         </div>
                         <div className="row">
