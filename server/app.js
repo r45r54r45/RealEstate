@@ -43,6 +43,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', _express2.default.static(__dirname + '/../build'));
+app.use('/img', _express2.default.static(__dirname + '/../image'));
 // var express = require('express')
 // var multer  = require('multer')
 // var upload = multer({ dest: 'uploads/' })

@@ -37,7 +37,7 @@ class AddStorePage extends React.Component {
         fetch('/user',{
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'Application/json'
+                'Content-Type': 'application/json'
             }),
             body: JSON.stringify({
                 store_name: this.store_name.value,
