@@ -172,19 +172,19 @@ class UpdateStorePage extends React.Component {
                 fileList.push(files[i]);
             }
             this.setState({
-                [area]: Object.assign(this.state[area], {
+                [area]: Object.assign({},this.state[area], {
                     image: fileList
                 })
             })
         } else if (type === "type") {
             this.setState({
-                [area]: Object.assign(this.state[area], {
+                [area]: Object.assign({},this.state[area], {
                     [type]: input
                 })
             })
         } else {
             this.setState({
-                [area]: Object.assign(this.state[area], {
+                [area]: Object.assign({},this.state[area], {
                     [type]: input.value
                 })
             })
