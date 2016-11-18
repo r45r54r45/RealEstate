@@ -100,12 +100,13 @@ class UpdateStorePage extends React.Component {
         if(type==="file"){
             let files=input.files;
             let length=input.files.length;
+            let fileList=[];
             for(let i=0; i<length; i++){
-                console.log(files[i]);
+                fileList.push(files[i]);
             }
             this.setState({
                 [area]: Object.assign(this.state[area],{
-                    image: files
+                    image: fileList
                 })
             })
         }else if(type==="type"){
@@ -345,7 +346,13 @@ class UpdateStorePage extends React.Component {
 function formDataSerialize(data){
     let form=new FormData();
     for(let key in data){
-        form.append(key, data[key]);
+        if(key=='image'){
+            for(let i=0; i<data[key].length; i++){
+                form.append(key, data[key][i]);
+            }
+        }else{
+            form.append(key, data[key]);
+        }
     }
     return form;
 }

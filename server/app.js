@@ -85,13 +85,16 @@ app.use('/img', _express2.default.static(__dirname + '/../image'));
 // })
 
 app.post('/item',upload.array('image'), function (req, res) {
-    var db = require('./mysql');
+    // var db = require('./mysql');
+    console.log(req.files);
     res.json({result: req.files});
+    var data=req.body;
     if(req.query.id){
-
-        // db.query('select * from Item i join User u on i.owner = u.id where u.id=?',[req.query.id],function(err, result){
-        //     res.json({result: result});
-        // });
+        db.query('insert into Item ' +
+            ' (type, owner, title, location, produced_area, real_area, floor, total_floor, room, toilet, specification, available, j_price, m_price, b_price, w_price)' +
+            'values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[data.type, req.query.id, data.title, data.location, data.produced_area, data.real_area, data.floor, data.total_floor, data.room, data.toilet, data.specification, data.available, data.j_price||null, data.m_price||null, data.b_price||null, data.w_price||null],function(err, result){
+            res.json({result: result});
+        });
     }else{
         res.json({result: false})
     }
