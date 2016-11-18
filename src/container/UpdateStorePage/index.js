@@ -70,10 +70,7 @@ class UpdateStorePage extends React.Component {
 
     submitEdit() {
         alert('업로드 중입니다. 화면을 벗어나지 마세요');
-        this.setState({
-            editTempImageList: []
-        })
-        fetch('/item?id=' + this.props.location.query.id, {
+        fetch('/item?id=' + this.state.editItem.id, {
             method: "PUT",
             body: formDataSerialize(this.state.editItem)
         }).then(dat=>dat.json()).then(result=> {
