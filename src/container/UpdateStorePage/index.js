@@ -7,7 +7,7 @@ class UpdateStorePage extends React.Component {
     constructor() {
         super();
         this.state = {
-            current: 'edit',
+            current: 'list',
             pathName: null,
             new: {
                 type:0
@@ -109,14 +109,7 @@ class UpdateStorePage extends React.Component {
         }
 
     }
-    componentWillReceiveProps(){
-        if(this.props.location.pathname!==this.state.pathName){
-            this.setState({
-                pathName: this.props.location.pathname,
-                current: 'list'
-            })
-        }
-    }
+
     selectType(section,type){
         this.setState({
             [section]:{
