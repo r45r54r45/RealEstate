@@ -50,7 +50,7 @@ class UpdateStorePage extends React.Component {
         }
         this.setState({
             editItem: Object.assign({},this.state.editItem,{
-                deleteImageList: list.push(imageId)
+                deleteImageList: [...list,imageId]
             }),
             editTempImageList: [...this.state.editTempImageList.slice(0,index),...this.state.editTempImageList.slice(index+1)]
         })
