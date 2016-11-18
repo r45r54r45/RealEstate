@@ -12,6 +12,11 @@ class AdminApp extends React.Component {
         }
         this.onSearch=this.onSearch.bind(this);
     }
+    componentWillMount(){
+        fetch('/user').then(dat=>dat.json()).then((result)=>{
+            console.log(result);
+        });
+    }
     onSearch(text){
         let length=this.state.storeList.length;
         let tempArr=[];
