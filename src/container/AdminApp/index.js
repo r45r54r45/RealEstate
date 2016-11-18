@@ -46,7 +46,7 @@ class AdminApp extends React.Component {
                         <li className="searchInput" ><input placeholder="검색" type="text" onChange={(e)=>this.onSearch(e)}/></li>
                         {this.state.shownList.map(function(item, index){
                             return (
-                                <li key={index}><Link to={'/update/'+item.id+'?name='+item.store_name+'&id='+item.id}>{item.store_name}</Link></li>
+                                <li key={index}><a href={'/update/'+item.id+'?name='+item.store_name+'&id='+item.id}>{item.store_name}</a></li>
                             )
                         })}
                     </ul>

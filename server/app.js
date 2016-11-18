@@ -111,7 +111,7 @@ app.get('/item', function (req, res) {
             res.json({result: result});
         });
     }else{
-        db.query('select url, item from Item i join Image m on m.item= i.id where i.id=?',[req.query.item],function(err, result){
+        db.query('select * from Item i join Image m on m.item= i.id where i.id=?',[req.query.item],function(err, result){
             res.json({result: result});
         });
     }
