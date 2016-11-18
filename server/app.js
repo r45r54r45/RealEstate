@@ -22,8 +22,8 @@ function _interopRequireDefault(obj) {
 
 var app = (0, _express2.default)();
 var port = 3000;
-var multer  = require('multer')
-var upload = multer({ dest: 'image/' })
+var multer = require('multer')
+var upload = multer({dest: 'image/'})
 app.use((0, _bodyParser2.default)());
 app.use((0, _cookieParser2.default)());
 
@@ -84,50 +84,50 @@ app.use('/img', _express2.default.static(__dirname + '/../image'));
 //     });
 // })
 
-app.post('/item',upload.array('image'), function (req, res) {
+app.post('/item', upload.array('image'), function (req, res) {
     var db = require('./mysql');
-    var data=req.body;
-    if(req.query.id){
+    var data = req.body;
+    if (req.query.id) {
         db.query('insert into Item ' +
             ' (type, owner, title, location, produced_area, real_area, floor, total_floor, room, toilet, specification, available, j_price, m_price, b_price, w_price)' +
-            'values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[data.type, req.query.id, data.title, data.location, data.produced_area, data.real_area, data.floor, data.total_floor, data.room, data.toilet, data.specification, data.available, data.j_price||null, data.m_price||null, data.b_price||null, data.w_price||null],function(err, result){
-            let id=result.insertId;
-            for(let key in req.files){
-                let dat=req.files[key];
-                db.query("insert into Image (url, item) values (?,?)",[dat.filename,id],function(err, result){
+            'values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [data.type, req.query.id, data.title, data.location, data.produced_area, data.real_area, data.floor, data.total_floor, data.room, data.toilet, data.specification, data.available, data.j_price || null, data.m_price || null, data.b_price || null, data.w_price || null], function (err, result) {
+            let id = result.insertId;
+            for (let key in req.files) {
+                let dat = req.files[key];
+                db.query("insert into Image (url, item) values (?,?)", [dat.filename, id], function (err, result) {
 
                 })
             }
             res.json({result: true});
         });
-    }else{
+    } else {
         res.json({result: false})
     }
 });
-function toInt(string){
+function toInt(string) {
     return parseInt(string);
 }
-function toFloat(string){
+function toFloat(string) {
     return parseFloat(string);
 }
-app.put('/item',upload.array('image'), function (req, res) {
+app.put('/item', upload.array('image'), function (req, res) {
     var db = require('./mysql');
-    var itemId=req.query.id;
-    var data=req.body;
+    var itemId = req.query.id;
+    var data = req.body;
     console.log(data);
-    req.body.deleteImageList=req.body.deleteImageList||"";
-    req.body.deleteImageList.split(',').forEach(function(item, index){
-        db.query('delete from Image where id=?',[item])
+    req.body.deleteImageList = req.body.deleteImageList || "";
+    req.body.deleteImageList.split(',').forEach(function (item, index) {
+        db.query('delete from Image where id=?', [item])
     })
     db.query('update Item set ' +
         ' type=?, title=?, location=?, produced_area=?, real_area=?, floor=?, total_floor=?, room=?, toilet=?, specification=?, available=?, j_price=?, m_price=?, b_price=?, w_price=? ' +
-        ' where id=?',[toInt(data.type), data.title, data.location, toFloat(data.produced_area), toFloat(data.real_area), toInt(data.floor), toInt(data.total_floor), toInt(data.room), toInt(data.toilet), data.specification, data.available, data.j_price||null, data.m_price||null, data.b_price||null, data.w_price||null, toInt(itemId)],function(err, result){
-        if(err){
+        ' where id=?', [toInt(data.type), data.title, data.location, toFloat(data.produced_area), toFloat(data.real_area), toInt(data.floor), toInt(data.total_floor), toInt(data.room), toInt(data.toilet), data.specification, data.available, data.j_price || null, data.m_price || null, data.b_price || null, data.w_price || null, toInt(itemId)], function (err, result) {
+        if (err) {
             res.json(err);
         }
-        for(var key in req.files){
-            var dat=req.files[key];
-            db.query("insert into Image (url, item) values (?,?)",[dat.filename,itemId],function(err, result){
+        for (var key in req.files) {
+            var dat = req.files[key];
+            db.query("insert into Image (url, item) values (?,?)", [dat.filename, itemId], function (err, result) {
 
             })
         }
@@ -137,34 +137,40 @@ app.put('/item',upload.array('image'), function (req, res) {
 });
 app.get('/item', function (req, res) {
     var db = require('./mysql');
-    if(req.query.id){
-        db.query('select i.id, i.title from Item i join User u on i.owner = u.id where u.id=?',[req.query.id],function(err, result){
+    if (req.query.id) {
+        db.query('select i.id, i.title from Item i join User u on i.owner = u.id where u.id=?', [req.query.id], function (err, result) {
             res.json({result: result});
         });
-    }else{
-        db.query('select * from Item i where i.id=?',[req.query.item],function(err, result){
-            db.query('select * from Image where item=?',[req.query.item],function(err2, result2){
-                result[0].images=result2;
+    } else {
+        db.query('select * from Item i where i.id=?', [req.query.item], function (err, result) {
+            db.query('select * from Image where item=?', [req.query.item], function (err2, result2) {
+                result[0].images = result2;
                 res.json({result: result[0]});
             })
         });
     }
 });
-app.put('/user',upload.array('image'), function (request, res) {
+app.delete('/item', function (req, res) {
+    var db = require('./mysql');
+    db.query('delete from Item where id=?', [req.query.id], function (err, result) {
+        res.json({result: result});
+    });
+});
+app.put('/user', upload.array('image'), function (request, res) {
     var body = request.body;
     var db = require('./mysql');
-    db.query('update User set store_name=?, ceo_name=?, login_id=?, login_pw=?, tel=?, phone=? where id=?', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone,request.query.id], function (err, result) {
+    db.query('update User set store_name=?, ceo_name=?, login_id=?, login_pw=?, tel=?, phone=? where id=?', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone, request.query.id], function (err, result) {
         res.json({result: true});
     });
 });
 app.get('/user', function (req, res) {
     var db = require('./mysql');
-    if(req.query.id){
-        db.query('select * from User where id=?',[req.query.id],function(err, result){
+    if (req.query.id) {
+        db.query('select * from User where id=?', [req.query.id], function (err, result) {
             res.json({result: result[0]});
         });
-    }else{
-        db.query('select id, store_name from User',function(err, result){
+    } else {
+        db.query('select id, store_name from User', function (err, result) {
             res.json({result: result});
         });
     }

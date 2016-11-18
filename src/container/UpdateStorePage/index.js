@@ -30,6 +30,7 @@ class UpdateStorePage extends React.Component {
         this.submitEdit = this.submitEdit.bind(this);
         this.deleteEditItemImage = this.deleteEditItemImage.bind(this);
         this.editBasicSubmit=this.editBasicSubmit.bind(this);
+        this.deleteItem=this.deleteItem.bind(this);
     }
 
     componentWillMount() {
@@ -75,6 +76,15 @@ class UpdateStorePage extends React.Component {
         })
 
     }
+    deleteItem(id){
+        if(confirm('삭제하시겠습니까?')){
+            fetch('/item?id='+id,{
+                method: "DELETE"
+            }).then(dat=>dat.json).then(data=>{
+                location.reload();
+            })
+        }
+    }
     editBasicSubmit(){
         alert('업로드 중입니다. 화면을 벗어나지 마세요');
         fetch('/user?id=' + this.props.location.query.id, {
@@ -86,6 +96,8 @@ class UpdateStorePage extends React.Component {
                 alert('업로드 성공');
                 let url=window.location.href;
                 window.location.href=url;
+
+                //TODO
             }
         }).catch(err=> {
             alert('에러 발생. 관리자에게 문의해주세요');
@@ -229,9 +241,7 @@ class UpdateStorePage extends React.Component {
                             {this.state.itemList.map((item, index)=> {
                                 return (
                                     <li key={index}>
-                                        {item.title} <a onClick={()=> {
-                                        confirm('삭제하시겠습니까?')
-                                    }} className="delete">삭제</a> <a className="edit" onClick={this.editItem.bind(this, {
+                                        {item.title} <a onClick={this.deleteItem.bind(this,item.id)} className="delete">삭제</a> <a className="edit" onClick={this.editItem.bind(this, {
                                         cancel: undefined,
                                         data: item
                                     })}>수정</a>
