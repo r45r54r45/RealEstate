@@ -16,7 +16,8 @@ class UpdateStorePage extends React.Component {
                 type:0
             },
             newItem: {},
-            editItem: {}
+            editItem: {},
+            itemList:[]
         }
         this.editBasic = this.editBasic.bind(this);
         this.newItem=this.newItem.bind(this);
@@ -25,7 +26,15 @@ class UpdateStorePage extends React.Component {
         this.mapValue=this.mapValue.bind(this);
         this.submitNew=this.submitNew.bind(this);
     }
+    componentWillMount(){
+        fetch('/item?id='+this.props.location.query.id).then(dat=>dat.json()).then(data=>{
+            this.setState({
+                itemList: data.result
+            })
+        })
+    }
     submitNew(){
+        alert('업로드 중입니다. 화면을 벗어나지 마세요');
         fetch('/item?id='+this.props.location.query.id,{
             method: "POST",
             body: formDataSerialize(this.state.newItem)
@@ -35,6 +44,9 @@ class UpdateStorePage extends React.Component {
                 alert('업로드 성공');
                 location.reload();
             }
+        }).error(err=>{
+            alert('에러 발생. 관리자에게 문의해주세요');
+            console.log(err);
         })
 
     }
@@ -76,6 +88,11 @@ class UpdateStorePage extends React.Component {
                 current: 'list'
             })
         }else{
+            fetch('/item?item='+type.data.id).then(dat=>dat.json()).then((data)=>{
+                this.setState({
+                    editItem: data.result[0]
+                })
+            })
             this.setState(
                 {
                     current: 'edit'
@@ -129,7 +146,6 @@ class UpdateStorePage extends React.Component {
     }
     render() {
         let name = this.props.location.query.name;
-        let itemList=["신시가지 아파트","센트럴파크 푸르지오", "더샵4차"];
         return (
             <div className="UpdateStorePage">
                 <h1>{name}
@@ -143,10 +159,10 @@ class UpdateStorePage extends React.Component {
                     <div className="ItemList">
                         <h3>매물 리스트</h3>
                         <ul>
-                            {itemList.map((item, index)=>{
+                            {this.state.itemList.map((item, index)=>{
                                 return (
                                 <li key={index}>
-                                    {item} <a onClick={()=>{confirm('삭제하시겠습니까?')}} className="delete">삭제</a> <a className="edit" onClick={this.editItem.bind(this, {cancel:undefined,data:item})}>수정</a>
+                                    {item.title} <a onClick={()=>{confirm('삭제하시겠습니까?')}} className="delete">삭제</a> <a className="edit" onClick={this.editItem.bind(this, {cancel:undefined,data:item})}>수정</a>
                                 </li>
                                 )
                             })}

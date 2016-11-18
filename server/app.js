@@ -107,11 +107,13 @@ app.post('/item',upload.array('image'), function (req, res) {
 app.get('/item', function (req, res) {
     var db = require('./mysql');
     if(req.query.id){
-        db.query('select * from Item i join User u on i.owner = u.id where u.id=?',[req.query.id],function(err, result){
+        db.query('select i.id, i.title from Item i join User u on i.owner = u.id where u.id=?',[req.query.id],function(err, result){
             res.json({result: result});
         });
     }else{
-        res.json({result: false})
+        db.query('select url, item from Item i join Image m on m.item= i.id where i.id=?',[req.query.item],function(err, result){
+            res.json({result: result});
+        });
     }
 });
 app.get('/user', function (req, res) {
