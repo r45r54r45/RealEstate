@@ -54,9 +54,6 @@
                 border-bottom: 1px solid white;
             }
             li{
-                :last-child{
-                    border-bottom: inherit;
-                }
                 display: flex;
                 align-items: center;
                 font-size: 18px;

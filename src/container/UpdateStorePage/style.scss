@@ -97,9 +97,10 @@
     .imageList{
         display: flex;
         flex-direction: row;
+        margin-bottom: 20px;
         .imageItem{
-            width: 100px;
-            height: 100px;
+            width: 200px;
+            height: 200px;
             margin-right: 10px;
             display: flex;
             align-items: center;

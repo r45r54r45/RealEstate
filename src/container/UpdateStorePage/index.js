@@ -17,7 +17,8 @@ class UpdateStorePage extends React.Component {
             },
             newItem: {},
             editItem: {},
-            itemList: []
+            itemList: [],
+            editTempImageList: []
         }
         this.editBasic = this.editBasic.bind(this);
         this.newItem = this.newItem.bind(this);
@@ -25,6 +26,8 @@ class UpdateStorePage extends React.Component {
         this.selectType = this.selectType.bind(this);
         this.mapValue = this.mapValue.bind(this);
         this.submitNew = this.submitNew.bind(this);
+        this.submitEdit = this.submitEdit.bind(this);
+        this.deleteEditItemImage = this.deleteEditItemImage.bind(this);
     }
 
     componentWillMount() {
@@ -32,6 +35,18 @@ class UpdateStorePage extends React.Component {
             this.setState({
                 itemList: data.result
             })
+        })
+    }
+
+    deleteEditItemImage(imageId) {
+        let index=this.state.editTempImageList.findIndex((item)=>{
+            return item.id=imageId;
+        });
+        this.setState({
+            editItem: Object.assign({},this.state.editItem,{
+                deleteImageList: [...(this.state.editItem.deleteImageList||[]),imageId]
+            }),
+            editTempImageList: [...this.state.editTempImageList.substring(0,index),...this.state.editTempImageList(index+1)]
         })
     }
 
@@ -51,6 +66,26 @@ class UpdateStorePage extends React.Component {
             console.log(err);
         })
 
+    }
+
+    submitEdit() {
+        alert('업로드 중입니다. 화면을 벗어나지 마세요');
+        this.setState({
+            editTempImageList: []
+        })
+        fetch('/item?id=' + this.props.location.query.id, {
+            method: "PATCH",
+            body: formDataSerialize(this.state.editItem)
+        }).then(dat=>dat.json()).then(result=> {
+            console.log(result);
+            if (result.result === true) {
+                alert('업로드 성공');
+                location.reload();
+            }
+        }).error(err=> {
+            alert('에러 발생. 관리자에게 문의해주세요');
+            console.log(err);
+        })
     }
 
     editBasic() {
@@ -91,16 +126,18 @@ class UpdateStorePage extends React.Component {
         if (type.cancel) {
             this.setState({
                 current: 'list',
-                editItem: {}
+                editItem: {},
+                editTempImageList:[]
             })
         } else {
             fetch('/item?item=' + type.data.id).then(dat=>dat.json()).then((data)=> {
                 this.setState({
-                    editItem: data.result
+                    editItem: data.result,
+                    editTempImageList: data.result.images
                 }, ()=> {
                     this.setState({
                         edit: {
-                            type: data.result.type
+                            type: data.result.type,
                         }
                     })
                 });
@@ -272,20 +309,21 @@ class UpdateStorePage extends React.Component {
                             </div>
                             <div className="row">
                                 <h4>사진 추가</h4>
-                                <input type="file" accept="image/x-png,image/gif,image/jpeg" multiple/>
+                                <input type="file" accept="image/x-png,image/gif,image/jpeg"
+                                       onChange={e=>this.mapValue(e.target, 'editItem', 'file')} multiple/>
                             </div>
                         </form>
                         <div className="imageList">
-                            {this.state.editItem.images.map((item, index)=> {
+                            {this.state.editTempImageList.images.map((item, index)=> {
                                 return (
-                                    <div className="imageItem" style={{background: `url(/img/${item.url})`}}>
-                                        <button>삭제</button>
+                                    <div key={index} className="imageItem" style={{backgroundImage: `url(/img/${item.url})`}}>
+                                        <button onClick={this.deleteEditItemImage.bind(this, item.id)}>삭제</button>
                                     </div>
                                 )
-                            })}
+                            },this)}
                         </div>
                         <div>
-                            <button id="newItemUploadButton">수정</button>
+                            <button id="newItemUploadButton" onClick={this.submitEdit}>수정</button>
                             <button style={{marginLeft: '10px'}} id="newItemUploadButton"
                                     onClick={this.editItem.bind(this, {cancel: true})}>취소
                             </button>
