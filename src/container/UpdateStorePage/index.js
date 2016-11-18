@@ -67,7 +67,7 @@ class UpdateStorePage extends React.Component {
                 alert('업로드 성공');
                 location.reload();
             }
-        }).error(err=> {
+        }).catch(err=> {
             alert('에러 발생. 관리자에게 문의해주세요');
             console.log(err);
         })
@@ -85,7 +85,7 @@ class UpdateStorePage extends React.Component {
                 alert('업로드 성공');
                 location.reload();
             }
-        }).error(err=> {
+        }).catch(err=> {
             alert('에러 발생. 관리자에게 문의해주세요');
             console.log(err);
         })
@@ -483,6 +483,8 @@ function formDataSerialize(data) {
             for (let i = 0; i < data[key].length; i++) {
                 form.append(key, data[key][i]);
             }
+        } else if(key =='images') {
+
         } else {
             form.append(key, data[key]);
         }
