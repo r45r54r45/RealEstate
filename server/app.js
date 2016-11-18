@@ -22,6 +22,8 @@ function _interopRequireDefault(obj) {
 
 var app = (0, _express2.default)();
 var port = 3000;
+var multer  = require('multer')
+var upload = multer({ dest: 'image/' })
 app.use((0, _bodyParser2.default)());
 app.use((0, _cookieParser2.default)());
 
@@ -81,8 +83,7 @@ app.use('/img', _express2.default.static(__dirname + '/../image'));
 //         res.json(result);
 //     });
 // })
-var multer  = require('multer')
-var upload = multer({ dest: 'image/' })
+
 app.post('/item',upload.array('image'), function (req, res) {
     var db = require('./mysql');
     res.json({result: req.files});

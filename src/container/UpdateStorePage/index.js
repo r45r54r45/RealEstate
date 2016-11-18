@@ -28,9 +28,6 @@ class UpdateStorePage extends React.Component {
     submitNew(){
         fetch('/item?id='+this.props.location.query.id,{
             method: "POST",
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
             body: formDataSerialize(this.state.newItem)
         }).then(dat=>dat.json()).then(result=>{
             console.log(result);
