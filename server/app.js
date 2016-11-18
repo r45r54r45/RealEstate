@@ -104,6 +104,25 @@ app.post('/item',upload.array('image'), function (req, res) {
         res.json({result: false})
     }
 });
+app.put('/item', function (req, res) {
+    var db = require('./mysql');
+    let itemId=req.query.id;
+    req.body.deleteImageList.forEach(function(item, index){
+        db.query('delete from Image where id=?',[item])
+    })
+    db.query('update Item set ' +
+        ' type=?, title=?, location=?, produced_area=?, real_area=?, floor=?, total_floor=?, room=?, toilet=?, specification=?, available=?, j_price=?, m_price=?, b_price=?, w_price=?)' +
+        ' where id=?',[data.type, data.title, data.location, data.produced_area, data.real_area, data.floor, data.total_floor, data.room, data.toilet, data.specification, data.available, data.j_price||null, data.m_price||null, data.b_price||null, data.w_price||null, itemId],function(err, result){
+        for(let key in req.files){
+            let dat=req.files[key];
+            db.query("insert into Image (url, item) values (?,?)",[dat.filename,itemId],function(err, result){
+
+            })
+        }
+        res.json({result: true});
+    });
+
+});
 app.get('/item', function (req, res) {
     var db = require('./mysql');
     if(req.query.id){

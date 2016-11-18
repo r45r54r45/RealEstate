@@ -74,7 +74,7 @@ class UpdateStorePage extends React.Component {
             editTempImageList: []
         })
         fetch('/item?id=' + this.props.location.query.id, {
-            method: "PATCH",
+            method: "PUT",
             body: formDataSerialize(this.state.editItem)
         }).then(dat=>dat.json()).then(result=> {
             console.log(result);
