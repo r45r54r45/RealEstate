@@ -77,7 +77,7 @@ class UpdateStorePage extends React.Component {
     }
     editBasicSubmit(){
         alert('업로드 중입니다. 화면을 벗어나지 마세요');
-        fetch('/user?id=' + this.this.props.location.id, {
+        fetch('/user?id=' + this.props.location.query.id, {
             method: "PUT",
             body: formDataSerialize(this.state.basic)
         }).then(dat=>dat.json()).then(result=> {
@@ -116,7 +116,7 @@ class UpdateStorePage extends React.Component {
                 }
             )
         } else {
-            fetch('/user?id'+this.props.location.id).then(dat=>dat.json()).then((result)=>{
+            fetch('/user?id='+this.props.location.query.id).then(dat=>dat.json()).then((result)=>{
                 this.setState(
                     {
                         current: 'basic',
