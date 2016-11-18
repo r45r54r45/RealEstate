@@ -31,6 +31,10 @@ class UpdateStorePage extends React.Component {
             body: formDataSerialize(this.state.newItem)
         }).then(dat=>dat.json()).then(result=>{
             console.log(result);
+            if(result.result===true){
+                alert('업로드 성공');
+                location.reload();
+            }
         })
 
     }
