@@ -11,6 +11,9 @@ import AdminApp from './container/AdminApp'
 import StatusPage from './container/StatusPage'
 import AddStorePage from './container/AddStorePage'
 import UpdateStorePage from './container/UpdateStorePage'
+
+import UserApp from './container/UserApp'
+import UserUpdateStorePage from './container/UserUpdateStorePage'
 ReactDOM.render(
     (
         getTemplate()
@@ -63,14 +66,10 @@ function getTemplate(){
             if (getPageType() !== 'VIEW_PAGE') {
                 return (
                     <Router history={browserHistory}>
-                        {/*<Route path="/" component={App}>*/}
-                        {/*<IndexRoute component={Dashboard} />*/}
-                        {/*<Route path="about" component={About}/>*/}
-                        {/*<Route path="users" component={Users}>*/}
-                        {/*<Route path="/user/:userId" component={User}/>*/}
-                        {/*</Route>*/}
-                        {/*<Route path="*" component={NoMatch}/>*/}
-                        {/*</Route>*/}
+                        <Route path="/" component={UserApp}>
+                            <IndexRoute component={UserUpdateStorePage} />
+                            <Route path="*" component={NoMatch}/>
+                        </Route>
                     </Router>
                 )
             } else{
