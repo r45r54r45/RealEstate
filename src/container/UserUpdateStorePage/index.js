@@ -126,7 +126,7 @@ class UserUpdateStorePage extends React.Component {
                 }
             )
         } else {
-            fetch('/user?id='+this.props.location.query.id).then(dat=>dat.json()).then((result)=>{
+            fetch('/user?id='+localStorage.getItem("userId")).then(dat=>dat.json()).then((result)=>{
                 this.setState(
                     {
                         current: 'basic',
@@ -224,9 +224,7 @@ class UserUpdateStorePage extends React.Component {
     render() {
         return (
             <div className="UpdateStorePage">
-                <h1>
-                    <button onClick={this.editBasic} className="editBasicButton">기본 정보 수정</button>
-                </h1>
+                <button onClick={this.editBasic} className="newItemButton">기본 정보 수정</button>
                 <ShowHide show={this.state.current !== 'new'}>
                     <button className="newItemButton" onClick={this.newItem}>새 매물</button>
                 </ShowHide>

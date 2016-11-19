@@ -14,7 +14,7 @@ class UserApp extends React.Component {
     componentWillMount(){
         fetch('/user?id='+localStorage.getItem("userId")).then(dat=>dat.json()).then((result)=>{
             this.setState({
-               basic: result
+               basic: result.result
             })
         });
     }
@@ -26,7 +26,7 @@ class UserApp extends React.Component {
                     <div className="info-area">
                         <img src={logo} style={{width: '80%'}}/>
                         <h1 id="page-user"><Link to="/">{this.state.basic.store_name}</Link></h1>
-                        <button onClick={e=>{localStorage.removeItem("userType"); location.href="/";}}>로그아웃</button>
+                        <button onClick={e=>{localStorage.removeItem("userType");localStorage.removeItem("userId"); location.href="/";}}>로그아웃</button>
                     </div>
                 </div>
                 <div className="right-area">
