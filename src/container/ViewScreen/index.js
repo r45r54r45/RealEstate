@@ -24,6 +24,11 @@ class ViewScreen extends React.Component {
     }
 
     componentWillMount() {
+
+    }
+
+    componentDidMount() {
+        this.timeInterval = 4000;
         var _this=this;
         fetch('/view?id=' + localStorage.getItem("userId")).then(dat=>dat.json()).then(data=> {
             _this.setState({
@@ -34,10 +39,6 @@ class ViewScreen extends React.Component {
                 console.log(this.state);
             })
         })
-    }
-
-    componentDidMount() {
-        this.timeInterval = 4000;
     }
 
     computeLists() {
