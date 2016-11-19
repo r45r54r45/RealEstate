@@ -157,7 +157,7 @@ app.get('/view', function (req, res) {
         var counter=0;
         var resultArray=[];
         result.forEach(function(item, index){
-            var itemIdd=item.id;
+            var itemId=item.id;
             db.query('select * from Item i where i.id=?', [itemId], function (err, result2) {
                 db.query('select * from Image where item=?', [itemId], function (err2, result3) {
                     result2[0].images = result3;
