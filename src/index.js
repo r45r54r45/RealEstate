@@ -24,13 +24,14 @@ function getUserType(){
     2. 고객
     3. 비로그인
      */
-    // if(!localStorage.getItem('userType')){
-    //     return 3;
-    // }else if(localStorage.getItem('userType')=='customer'){
-    //     return 2;
-    // }
-    return 1;
-
+    if(!localStorage.getItem('userType')){
+        return 3;
+    }else if(localStorage.getItem('userType')=='customer'){
+        return 2;
+    }else if(localStorage.getItem('userType')=='admin'){
+        return 1;
+    }
+    return 3;
 }
 
 function getPageType(){
@@ -49,7 +50,7 @@ function getTemplate(){
                     <Route path="/" component={AdminApp}>
                     <IndexRoute component={StatusPage} />
                     <Route path="add" component={AddStorePage}/>
-                    <Route path="update/:storeId" component={UpdateStorePage} onChange={()=>{this.forceUpdate()}}/>
+                    <Route path="update/:storeId" component={UpdateStorePage}/>
                     <Route path="*" component={NoMatch}/>
                     </Route>
                 </Router>
@@ -74,6 +75,7 @@ function getTemplate(){
                         <Route path="/" component={ViewTemplate}>
                             <IndexRoute component={ViewScreen}/>
                             <Route path="*" component={ViewScreen}/>
+                            <Route path="*" component={NoMatch}/>
                         </Route>
                     </Router>
                 )

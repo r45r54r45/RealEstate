@@ -84,8 +84,15 @@ app.use('/img', _express2.default.static(__dirname + '/../image'));
 //     });
 // })
 app.post('/login', function(req, res){
-
-})
+    var db = require('./mysql');
+    db.query("select id from User where login_id=? and login_pw=?",[ req.body.login_id, req.body.login_pw], function(err, result){
+      if(result.length===0){
+          res.json({result: false});
+      } else{
+          res.json({result: true, userId: result[0].id});
+      }
+    })
+});
 app.post('/item', upload.array('image'), function (req, res) {
     var db = require('./mysql');
     var data = req.body;

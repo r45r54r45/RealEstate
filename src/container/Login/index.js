@@ -20,14 +20,32 @@ class Login extends React.Component{
             return;
         }
         //test code
-        if(this.id.value==='test'&&this.pw.value==='1234'&&this.state.viewMode===true){
-            localStorage.setItem('viewMode','true');
-            localStorage.setItem('userType','customer');
+        if(this.id.value==='admin'&&this.pw.value==='admin'){
+            localStorage.setItem('userType','admin');
             location.reload();
         }else{
-            alert('개발중입니다');
+            fetch('/login',{
+                method: "POST",
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify({
+                    login_id: this.id.value,
+                    login_pw: this.pw.value
+                })
+            }).then(dat=>dat.json()).then(data=>{
+                if(data.result){
+                    localStorage.setItem('userType','customer');
+                    localStorage.setItem('userId',data.userId.toString());
+                    if(this.state.viewMode===true){
+                        localStorage.setItem('viewMode','true');
+                    }
+                    location.reload();
+                }else{
+                    alert('아이디 비밀번호가 일치하지 않습니다');
+                }
+            })
         }
-
     }
     render(){
         return (
