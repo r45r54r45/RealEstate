@@ -42,6 +42,7 @@ class AdminApp extends React.Component {
                     <div className="info-area">
                         <img src={logo} style={{width: '80%'}}/>
                         <h1 id="page-user"><Link to="/"> 관리자</Link></h1>
+                        <button onClick={e=>{localStorage.removeItem("userType"); location.href="/";}}>로그아웃</button>
                     </div>
                     <ul className="store-list-area">
                         <li style={{background: 'white', color: '#3ca2e0', borderRadius: '10px', paddingLeft: '10px',marginBottom: '20px'}}><Link to="/add">+ 부동산 추가</Link></li>
