@@ -291,7 +291,7 @@ class ViewScreen extends React.Component {
                                         등록일
                                     </div>
                                     <div className="desc">
-                                        {currentData.created_at}
+                                        {getDate(currentData.created_at)}
                                     </div>
                                 </div>
                             </div>
@@ -383,11 +383,15 @@ function getPrice(item) {
 function getBigPrice(item) {
     switch (item.type) {
         case 1:
-            return item.j_price+'<span className="residue">만원 </span>';
+            return item.j_price+'<span class="residue">만원 </span>';
         case 2:
-            return item.m_price+'<span className="residue">만원 </span>';
+            return item.m_price+'<span class="residue">만원 </span>';
         case 3:
-            return item.w_price+'<span className="residue">만원/</span> '+item.b_price+'<span className="residue">만원 </span>';
+            return item.w_price+'<span class="residue">만원/</span> '+item.b_price+'<span class="residue">만원 </span>';
     }
+}
+function getDate(time){
+    let d=new Date(time);
+    return d.getFullYear()+"년 "+(d.getMonth()+1)+"월 "+d.getDate()+"일";
 }
 export default ViewScreen;
