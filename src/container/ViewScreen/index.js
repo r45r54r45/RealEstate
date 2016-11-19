@@ -245,7 +245,6 @@ class ViewScreen extends React.Component {
                                         <div className="desc">
                                             <span>{currentData.floor}/{currentData.total_floor}층</span>
                                         </div>
-
                                     </div>
                                     <div className="right">
                                         <div className="title">
@@ -308,33 +307,36 @@ class ViewScreen extends React.Component {
                         </div>
                         <div className="item-list-area">
                             <div className="overlay"></div>
-                            <Slider ref="ListSlider" {...ListSettings}>
-                                {this.state.data.map(function (item, index) {
-                                    return (
-                                        <div className="item" key={index}>
-                                            <div className="image-area">
-                                                <img
-                                                    src={item.images[0]} role="presentation"/>
+                            {this.state.data!== 0 ?(
+                                <Slider ref="ListSlider" {...ListSettings}>
+                                    {this.state.data.map(function (item, index) {
+                                        return (
+                                            <div className="item" key={index}>
+                                                <div className="image-area">
+                                                    <img
+                                                        src={item.images[0]} role="presentation"/>
+                                                </div>
+                                                <div className="info-area">
+                                                    <div className="first-row">
+                                                        <span className="type">{item.type==1?"전세":(item.type==2?"매매":"월세")}</span>
+                                                        <span className="title">{item.title}</span>
+                                                    </div>
+                                                    <div className="next-row">
+                                                        <span className="left">{item.location}</span>
+                                                        <span
+                                                            className="right">{item.real_area}㎡ {item.room}/{item.toilet}</span>
+                                                    </div>
+                                                    <div className="next-row">
+                                                        <span className="left">{item.specification}</span>
+                                                        <span className="right">{item.w_price}만원</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="info-area">
-                                                <div className="first-row">
-                                                    <span className="type">{item.type==1?"전세":(item.type==2?"매매":"월세")}</span>
-                                                    <span className="title">{item.title}</span>
-                                                </div>
-                                                <div className="next-row">
-                                                    <span className="left">{item.location}</span>
-                                                    <span
-                                                        className="right">{item.real_area}㎡ {item.room}/{item.toilet}</span>
-                                                </div>
-                                                <div className="next-row">
-                                                    <span className="left">{item.specification}</span>
-                                                    <span className="right">{item.w_price}만원</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-                            </Slider>
+                                        )
+                                    })}
+                                </Slider>
+                            ):("")}
+
                         </div>
                         <div className="store-info-area">
                             <div className="storeName">
