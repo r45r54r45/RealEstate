@@ -135,7 +135,7 @@ class ViewScreen extends React.Component {
                 resolve();
             } else { //비디오 재생할 때라면
                 var options = {
-                    id: 59777392,
+                    id: 192222354,
                     width: 900
                 };
                 this.setState({

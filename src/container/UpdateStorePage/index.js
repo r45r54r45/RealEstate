@@ -400,9 +400,19 @@ class UpdateStorePage extends React.Component {
                                    onChange={e=>this.mapValue(e.target, 'basic', 'video_num')}/>
                         </div>
                         <div className="row">
+                            <label htmlFor="phone">동영상 아이디</label>
+                            <input id="phone" type="number" value={this.state.basic.video_id}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'video_id')}/>
+                        </div>
+                        <div className="row">
                             <label htmlFor="phone">사진 재생 주기 (몇 매물마다)</label>
                             <input id="phone" placeholder="숫자만 적어주세요" type="number" value={this.state.basic.image_num}
                                    onChange={e=>this.mapValue(e.target, 'basic', 'image_num')}/>
+                        </div>
+                        <div className="row">
+                            <label htmlFor="phone">사진 등록/변경</label>
+                            <input id="phone" type="file"
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'file')}/>
                         </div>
                         <div className="row">
                             <label htmlFor="phone">계약 시작일</label>
