@@ -197,6 +197,8 @@ class ViewScreen extends React.Component {
             speed: 500,
             beforeChange: this.onMainSlideEnd,
             slidesToShow: 1,
+            draggable: false,
+            swipeToSlide: false,
             slidesToScroll: 1,
             lazyLoad: false
         };
@@ -205,6 +207,8 @@ class ViewScreen extends React.Component {
             infinite: true,
             vertical: true,
             speed: 500,
+            draggable: false,
+            swipeToSlide: false,
             slidesToShow: 5,
             slidesToScroll: 1
         };
