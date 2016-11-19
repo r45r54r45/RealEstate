@@ -28,12 +28,13 @@ class ViewScreen extends React.Component {
             this.setState({
                 data: data.list,
                 basic: data.basic
+            },()=>{
+                this.computeLists();
             })
         })
     }
 
     componentDidMount() {
-        this.computeLists();
         this.timeInterval = 4000;
     }
 
