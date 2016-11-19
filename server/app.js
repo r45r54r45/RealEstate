@@ -195,7 +195,13 @@ app.delete('/item', function (req, res) {
 app.put('/user', upload.array('image'), function (request, res) {
     var body = request.body;
     var db = require('./mysql');
-    db.query('update User set store_name=?, ceo_name=?, login_id=?, login_pw=?, tel=?, phone=?, video_num=?, image_num=? ,contract_start=?, contract_duration=?, contract_end=?, video_id=?, image_url=? where id=?', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone, body.video_num, body.image_num, body.contract_start, body.contract_duration, body.contract_end, body.video_id, request.files[0].filename ,request.query.id], function (err, result) {
+    var filename;
+    if(request.files){
+        filename=request.files[0].filename;
+    }else{
+        filename=null;
+    }
+    db.query('update User set store_name=?, ceo_name=?, login_id=?, login_pw=?, tel=?, phone=?, video_num=?, image_num=? ,contract_start=?, contract_duration=?, contract_end=?, video_id=?, image_url=? where id=?', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone, body.video_num, body.image_num, body.contract_start, body.contract_duration, body.contract_end, body.video_id, filename ,request.query.id], function (err, result) {
         res.json({result: true});
     });
 });
