@@ -308,7 +308,7 @@ class ViewScreen extends React.Component {
                         </div>
                         <div className="item-list-area">
                             <div className="overlay"></div>
-                            {this.state.data!== 0 ?(
+                            {this.state.data.length!== 0 ?(
                                 <Slider ref="ListSlider" {...ListSettings}>
                                     {this.state.data.map(function (item, index) {
                                         return (
