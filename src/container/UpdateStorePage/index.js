@@ -94,10 +94,7 @@ class UpdateStorePage extends React.Component {
             console.log(result);
             if (result.result === true) {
                 alert('업로드 성공');
-                let url=window.location.href;
-                window.location.href=url;
-
-                //TODO
+                this.editBasic();
             }
         }).catch(err=> {
             alert('에러 발생. 관리자에게 문의해주세요');
