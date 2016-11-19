@@ -559,4 +559,4 @@ function formDataSerialize(data) {
     }
     return form;
 }
-export default UpdateStorePage;
+export default UserUpdateStorePage;

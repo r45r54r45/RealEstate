@@ -37,4 +37,4 @@ class UserApp extends React.Component {
     }
 }
 
-export default AdminApp
+export default UserApp
