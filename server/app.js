@@ -196,7 +196,7 @@ app.put('/user', upload.array('image'), function (request, res) {
     var body = request.body;
     var db = require('./mysql');
     var filename;
-    if(request.files){
+    if(request.files[0]){
         filename=request.files[0].filename;
     }else{
         filename=null;
