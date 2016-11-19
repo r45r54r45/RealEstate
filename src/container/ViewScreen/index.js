@@ -24,7 +24,7 @@ class ViewScreen extends React.Component {
     }
 
     componentWillMount() {
-
+        console.log("component will mount");
     }
 
     componentDidMount() {
