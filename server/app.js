@@ -163,7 +163,7 @@ app.get('/view', function (req, res) {
                 db.query('select * from Item i where i.id=?', [itemId], function (err, result2) {
                     db.query('select * from Image where item=?', [itemId], function (err2, result3) {
                         result3.map(function(item){
-                            return "http://104.197.153.50/img/"+item.url;
+                            return {url:"http://104.197.153.50/img/"+item.url};
                         });
                         result2[0].images = result3;
                         resultArray.push(result2[0]);
