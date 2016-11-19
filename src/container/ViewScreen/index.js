@@ -24,12 +24,13 @@ class ViewScreen extends React.Component {
     }
 
     componentWillMount() {
+        var _this=this;
         fetch('/view?id=' + localStorage.getItem("userId")).then(dat=>dat.json()).then(data=> {
-            this.setState({
+            _this.setState({
                 data: data.list,
                 basic: data.basic
             },()=>{
-                this.computeLists();
+                _this.computeLists();
                 console.log(this.state);
             })
         })
