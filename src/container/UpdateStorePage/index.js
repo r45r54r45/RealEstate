@@ -363,7 +363,7 @@ class UpdateStorePage extends React.Component {
                 ) : ("")}
 
                 {this.state.current === 'basic' ? (
-                    <form className="editBasicForm">
+                    <div className="editBasicForm">
                         <div className="row">
                             <label htmlFor="name">업체 이름</label>
                             <input id="name" type="text" value={this.state.basic.store_name}
@@ -422,7 +422,7 @@ class UpdateStorePage extends React.Component {
                         <div className="row">
                             <button onClick={this.editBasicSubmit}>기본정보 수정</button>
                         </div>
-                    </form>
+                    </div>
                 ) : ("")}
 
                 {this.state.current === 'new' ? (
