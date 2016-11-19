@@ -13,6 +13,7 @@ class ViewScreen extends React.Component {
             slideList: [],
             slideBreakpoint: [],
             videoPlay: false,
+            imagePlay: false,
             currentCount: 0,
             current: {
                 data: {}
@@ -137,8 +138,17 @@ class ViewScreen extends React.Component {
                     });
                 })
             } else if (rotation === "IMAGE") {
-                console.log("image");
-                resolve();
+                this.setState({
+                    imagePlay: true
+                }, ()=>{
+                    setTimeout(()=>{
+                        this.setState({
+                            imagePlay: false
+                        }, ()=> {
+                            resolve();
+                        })
+                    },4000);
+                })
             } else {
                 resolve();
             }
@@ -204,6 +214,10 @@ class ViewScreen extends React.Component {
             <div className="ViewScreen">
                 <div className="whole-page-video-area" id="made-in-ny"
                      style={!this.state.videoPlay ? {display: 'none'} : {}}></div>
+                <div className="whole-page-image-area"
+                     style={!this.state.imagePlay ? {display: 'none'} : {}}>
+                    <img src={this.state.basic.img_url}/>
+                </div>
                 <div className="top-area">
                     <div className="left-area">
                         <div className="slide-area">
