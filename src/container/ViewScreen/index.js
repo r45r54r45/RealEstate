@@ -82,13 +82,13 @@ class ViewScreen extends React.Component {
             if(jugi_video==-1&&jugi_image==-1){
                 resolve();
             }
-            if(!((jugi_video!==-1&&this.state.basic.video_id!==null)||(jugi_image!==-1&&this.state.basic.image_url!==null))){
+            if(!((jugi_video!==-1&&this.state.basic.video_id!=null)||(jugi_image!==-1&&this.state.basic.image_url!==ull))){
                 resolve();
             }
-            if(jugi_video!==-1&&this.state.basic.video_id!==null){
+            if(jugi_video!==-1&&this.state.basic.video_id!=null){
                 videoEnable=true;
             }
-            if(jugi_image!==-1&&this.state.basic.image_url!==null){
+            if(jugi_image!==-1&&this.state.basic.image_url!=null){
                 imageEnable=true;
             }
             let nextCount = this.state.currentCount + 1;
