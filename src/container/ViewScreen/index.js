@@ -30,6 +30,7 @@ class ViewScreen extends React.Component {
                 basic: data.basic
             },()=>{
                 this.computeLists();
+                console.log(this.state);
             })
         })
     }
@@ -311,7 +312,7 @@ class ViewScreen extends React.Component {
                                         <div className="item" key={index}>
                                             <div className="image-area">
                                                 <img
-                                                    src={item.image[0]} role="presentation"/>
+                                                    src={item.images[0]} role="presentation"/>
                                             </div>
                                             <div className="info-area">
                                                 <div className="first-row">
