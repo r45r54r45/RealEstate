@@ -25,13 +25,13 @@ class ViewScreen extends React.Component {
 
     componentWillMount() {
         console.log("component will mount");
-        var _this=this;
+        var _this = this;
         console.log("fetch start");
         fetch('/view?id=' + localStorage.getItem("userId")).then(dat=>dat.json()).then(data=> {
             _this.setState({
                 data: data.list,
                 basic: data.basic
-            },()=>{
+            }, ()=> {
                 _this.computeLists();
                 console.log(_this.state);
             })
@@ -76,43 +76,44 @@ class ViewScreen extends React.Component {
              -> 예를 들어 매물이 3개여도 5개 마다 재생되도록 (반복 되니까)
              */
             const jugi_video = this.state.basic.video_num;
-            const jugi_image= this.state.basic.image_num;
-            var videoEnable=false;
-            var imageEnable=false;
-            if(jugi_video==-1&&jugi_image==-1){
+            const jugi_image = this.state.basic.image_num;
+            var videoEnable = false;
+            var imageEnable = false;
+            if (jugi_video == -1 && jugi_image == -1) {
                 resolve();
             }
-            if(!((jugi_video!==-1&&this.state.basic.video_id!="null")||(jugi_image!==-1&&this.state.basic.image_url!=="null"))){
+            if (!((jugi_video !== -1 && this.state.basic.video_id != "null") || (jugi_image !== -1 && this.state.basic.image_url !== "null"))) {
                 resolve();
             }
-            if(jugi_video!==-1&&this.state.basic.video_id!="null"){
-                videoEnable=true;
+            if (jugi_video !== -1 && this.state.basic.video_id != "null") {
+                videoEnable = true;
             }
-            if(jugi_image!==-1&&this.state.basic.image_url!="null"){
-                imageEnable=true;
+            if (jugi_image !== -1 && this.state.basic.image_url != "null") {
+                imageEnable = true;
             }
             let nextCount = this.state.currentCount + 1;
             this.setState({
                 currentCount: nextCount
             })
-            function checkRotation(videoEnable, jugi_video, imageEnable, jugi_image, nextCount){
-                if(videoEnable){
-                    if(nextCount % jugi_video === 0){
+            function checkRotation(videoEnable, jugi_video, imageEnable, jugi_image, nextCount) {
+                if (videoEnable) {
+                    if (nextCount % jugi_video === 0) {
                         return 'VIDEO'
                     }
                 }
                 //비디오 우선
-                if(imageEnable){
-                    if(nextCount % jugi_image === 0){
+                if (imageEnable) {
+                    if (nextCount % jugi_image === 0) {
                         return 'IMAGE'
                     }
                 }
                 return false;
             }
-            var rotation=checkRotation(videoEnable, jugi_video, imageEnable, jugi_image, nextCount);
+
+            var rotation = checkRotation(videoEnable, jugi_video, imageEnable, jugi_image, nextCount);
             if (!rotation) { //아직 fire 할때가 아니라면
                 resolve();
-            } else if(rotation==='VIDEO'){ //비디오 재생할 때라면
+            } else if (rotation === 'VIDEO') { //비디오 재생할 때라면
                 var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
                 var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
                 var options = {
@@ -135,10 +136,10 @@ class ViewScreen extends React.Component {
                         })
                     });
                 })
-            }else if(rotation==="IMAGE"){
+            } else if (rotation === "IMAGE") {
                 console.log("image");
                 resolve();
-            }else{
+            } else {
                 resolve();
             }
         });
@@ -223,7 +224,7 @@ class ViewScreen extends React.Component {
                                 <div className="first-row">
                                     <div className="left">
                                         <span className="type">
-                                            {currentData.type==1?"전세":(currentData.type==2?"매매":"월세")}
+                                            {currentData.type == 1 ? "전세" : (currentData.type == 2 ? "매매" : "월세")}
                                         </span>
                                         <span className="desc">
                                             {currentData.title}
@@ -275,16 +276,15 @@ class ViewScreen extends React.Component {
                             </div>
                             <div className="right-area">
                                 <div className="top">
-                                    <div className="title">
-                                        {currentData.type==1?"전세":(currentData.type==2?"매매":"월세")}가
-                                    </div>
-                                    <div className="desc">
+                                    <div>
+                                        <div className="title">
+                                            {currentData.type == 1 ? "전세가" : (currentData.type == 2 ? "매매가" : "월세/보증금")}
+                                        </div>
+                                        <div className="desc">
                                         <span className="price">
-                                            {currentData.price}
+                                            {getBigPrice(currentData)}
                                         </span>
-                                        <span className="residue">
-                                            만원
-                                        </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="bottom">
@@ -308,7 +308,7 @@ class ViewScreen extends React.Component {
                         </div>
                         <div className="item-list-area">
                             <div className="overlay"></div>
-                            {this.state.data.length!== 0 ?(
+                            {this.state.data.length !== 0 ? (
                                 <Slider ref="ListSlider" {...ListSettings}>
                                     {this.state.data.map(function (item, index) {
                                         return (
@@ -319,7 +319,8 @@ class ViewScreen extends React.Component {
                                                 </div>
                                                 <div className="info-area">
                                                     <div className="first-row">
-                                                        <span className="type">{item.type==1?"전세":(item.type==2?"매매":"월세")}</span>
+                                                        <span
+                                                            className="type">{item.type == 1 ? "전세" : (item.type == 2 ? "매매" : "월세")}</span>
                                                         <span className="title">{item.title}</span>
                                                     </div>
                                                     <div className="next-row">
@@ -329,14 +330,14 @@ class ViewScreen extends React.Component {
                                                     </div>
                                                     <div className="next-row">
                                                         <span className="left">{item.specification}</span>
-                                                        <span className="right">{item.w_price}만원</span>
+                                                        <span className="right">{getPrice(item)}만원</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         )
                                     })}
                                 </Slider>
-                            ):("")}
+                            ) : ("")}
 
                         </div>
                         <div className="store-info-area">
@@ -363,11 +364,31 @@ class ViewScreen extends React.Component {
                     <img className="right" src="http://realty.mfamily.co.kr/images/footer_imgr.png"
                          role="presentation"/>
                     <div className="marquee-wrapper">
-                        <p className="marquee">안녕하세요.  {this.state.basic.store_name} 입니다. </p>
+                        <p className="marquee">안녕하세요. {this.state.basic.store_name} 입니다. </p>
                     </div>
                 </div>
             </div>
         )
+    }
+}
+function getPrice(item) {
+    switch (item.type) {
+        case 1:
+            return item.j_price;
+        case 2:
+            return item.m_price;
+        case 3:
+            return item.w_price;
+    }
+}
+function getBigPrice(item) {
+    switch (item.type) {
+        case 1:
+            return item.j_price+'<span className="residue">만원 </span>';
+        case 2:
+            return item.m_price+'<span className="residue">만원 </span>';
+        case 3:
+            return item.w_price+'<span className="residue">만원/</span> '+item.j_price+'<span className="residue">만원 </span>';
     }
 }
 export default ViewScreen;

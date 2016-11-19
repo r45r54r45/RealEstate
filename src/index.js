@@ -24,6 +24,8 @@ function getUserType(){
     2. 고객
     3. 비로그인
      */
+    return 2;
+
     if(!localStorage.getItem('userType')){
         return 3;
     }else if(localStorage.getItem('userType')=='customer'){
@@ -35,6 +37,8 @@ function getUserType(){
 }
 
 function getPageType(){
+    return 'VIEW_PAGE';
+
     if(localStorage.getItem('viewMode')){
         return 'VIEW_PAGE';
     }else{
