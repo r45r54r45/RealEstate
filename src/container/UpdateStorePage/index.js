@@ -226,8 +226,9 @@ class UpdateStorePage extends React.Component {
         return (
             <div className="UpdateStorePage">
                 <h1>{name}
-                    <button onClick={this.editBasic} className="editBasicButton">기본 정보 수정</button>
+
                 </h1>
+                <button onClick={this.editBasic} className="newItemButton">기본 정보 수정</button>
                 <ShowHide show={this.state.current !== 'new'}>
                     <button className="newItemButton" onClick={this.newItem}>새 매물</button>
                 </ShowHide>

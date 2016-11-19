@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="47a78136-00f7-4972-876e-979897a210d9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/container/UserApp/index.js" afterPath="$PROJECT_DIR$/src/container/UserApp/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/container/UserUpdateStorePage/index.js" afterPath="$PROJECT_DIR$/src/container/UserUpdateStorePage/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/container/UserUpdateStorePage/style.scss" afterPath="$PROJECT_DIR$/src/container/UserUpdateStorePage/style.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/container/UpdateStorePage/index.js" afterPath="$PROJECT_DIR$/src/container/UpdateStorePage/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/container/UpdateStorePage/style.scss" afterPath="$PROJECT_DIR$/src/container/UpdateStorePage/style.scss" />
     </list>
     <ignored path="RealEstate.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,6 +27,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/container/UpdateStorePage/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="229" column="21" selection-start-line="229" selection-start-column="21" selection-end-line="229" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -106,31 +117,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/container/UserUpdateStorePage/style.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+              <caret line="18" column="27" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/container/AdminApp/index.js">
+      <file leaf-file-name="style.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/container/UpdateStorePage/style.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
-              <caret line="55" column="30" selection-start-line="55" selection-start-column="30" selection-end-line="55" selection-end-column="30" />
+            <state relative-caret-position="165">
+              <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -172,10 +173,8 @@
         <option value="$PROJECT_DIR$/server/mysql.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/container/UpdateStorePage/style.scss" />
         <option value="$PROJECT_DIR$/src/container/AdminApp/style.scss" />
         <option value="$PROJECT_DIR$/src/container/AddStorePage/index.js" />
-        <option value="$PROJECT_DIR$/src/container/UpdateStorePage/index.js" />
         <option value="$PROJECT_DIR$/src/container/AdminApp/index.js" />
         <option value="$PROJECT_DIR$/server/app.js" />
         <option value="$PROJECT_DIR$/src/container/ViewScreen/style.scss" />
@@ -185,6 +184,8 @@
         <option value="$PROJECT_DIR$/src/container/UserApp/index.js" />
         <option value="$PROJECT_DIR$/src/container/UserUpdateStorePage/index.js" />
         <option value="$PROJECT_DIR$/src/container/UserUpdateStorePage/style.scss" />
+        <option value="$PROJECT_DIR$/src/container/UpdateStorePage/style.scss" />
+        <option value="$PROJECT_DIR$/src/container/UpdateStorePage/index.js" />
       </list>
     </option>
   </component>
@@ -649,12 +650,12 @@
       <updated>1478604349632</updated>
       <workItem from="1478604351183" duration="46934000" />
       <workItem from="1479454140328" duration="7282000" />
-      <workItem from="1479466359009" duration="32920000" />
+      <workItem from="1479466359009" duration="33081000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87136000" />
+    <option name="totallyTimeSpent" value="87297000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -983,29 +984,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/container/UpdateStorePage/style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="102" column="26" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/component/ShowHide/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/container/UpdateStorePage/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3255">
-          <caret line="415" column="30" selection-start-line="415" selection-start-column="30" selection-end-line="415" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1126,8 +1109,26 @@
     <entry file="file://$PROJECT_DIR$/src/container/UserUpdateStorePage/style.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+          <caret line="18" column="27" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="27" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/container/UpdateStorePage/style.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/container/UpdateStorePage/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="229" column="21" selection-start-line="229" selection-start-column="21" selection-end-line="229" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
