@@ -215,8 +215,7 @@ class ViewScreen extends React.Component {
                 <div className="whole-page-video-area" id="made-in-ny"
                      style={!this.state.videoPlay ? {display: 'none'} : {}}></div>
                 <div className="whole-page-image-area"
-                     style={!this.state.imagePlay ? {display: 'none'} : {}}>
-                    <img src={this.state.basic.img_url}/>
+                     style={!this.state.imagePlay ? {display: 'none'} : {backgroundImage:'url(/img/'+this.state.basic.image_url+')'}}>
                 </div>
                 <div className="top-area">
                     <div className="left-area">

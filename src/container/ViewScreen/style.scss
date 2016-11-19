@@ -69,6 +69,16 @@ body {
     justify-content: center;
     z-index: 99999;
   }
+  .whole-page-image-area{
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    background-size: cover;
+    background-position: center;
+  }
   .top-area {
     width: inherit;
     height: 90%;
