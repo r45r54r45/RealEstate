@@ -1,5 +1,6 @@
 import React from 'react'
 import './style.scss'
+import logo from './logo.png';
 import "../../../node_modules/react-toggle-switch/dist/css/switch.min.css"
 
 class Login extends React.Component{
@@ -50,12 +51,13 @@ class Login extends React.Component{
     render(){
         return (
             <div className="LoginPage">
-                <div className="login-area">
-                    <div className="title">로그인</div>
+                <div className="login-area" style={{overflow: 'hidden'}}>
+                    <div><img style={{width:'100%'}} src={logo}/></div>
+                    {/*<div className="title">로그인</div>*/}
                     <div className="input-area">
                         <input ref={input=>this.id=input} className="id" placeholder="아이디" type="text"/>
                         <input ref={input=>this.pw=input} className="pw" placeholder="비밀번호" type="password"/>
-                        <label htmlFor="viewMode">
+                        <label htmlFor="viewMode" style={{fontSize: '15px'}}>
                             <input onChange={e=>this.setState({viewMode:!this.state.viewMode})} id="viewMode" type="checkbox" value="Bike"/>
                             뷰모드
                         </label>
