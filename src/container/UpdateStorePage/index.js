@@ -399,12 +399,12 @@ class UpdateStorePage extends React.Component {
                         </div>
                         <div className="row">
                             <label htmlFor="phone">동영상 재생 주기 (몇 매물마다)</label>
-                            <input id="phone" placeholder="숫자만 적어주세요" type="number" value={this.state.basic.video}
+                            <input id="phone" placeholder="숫자만 적어주세요" type="number" value={this.state.basic.video_num}
                                    onChange={e=>this.mapValue(e.target, 'basic', 'video_num')}/>
                         </div>
                         <div className="row">
                             <label htmlFor="phone">사진 재생 주기 (몇 매물마다)</label>
-                            <input id="phone" placeholder="숫자만 적어주세요" type="number" value={this.state.basic.image}
+                            <input id="phone" placeholder="숫자만 적어주세요" type="number" value={this.state.basic.image_num}
                                    onChange={e=>this.mapValue(e.target, 'basic', 'image_num')}/>
                         </div>
                         <div className="row">
