@@ -186,7 +186,7 @@ app.delete('/item', function (req, res) {
 app.put('/user', upload.array('image'), function (request, res) {
     var body = request.body;
     var db = require('./mysql');
-    db.query('update User set store_name=?, ceo_name=?, login_id=?, login_pw=?, tel=?, phone=? where id=?', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone, request.query.id], function (err, result) {
+    db.query('update User set store_name=?, ceo_name=?, login_id=?, login_pw=?, tel=?, phone=?, video_num=?, image_num=? ,contract_start=?, contract_duration=?, contract_end=? where id=?', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone, body.video_num, body.image_num, body.contract_start, body.contract_duration, body.contract_end ,request.query.id], function (err, result) {
         res.json({result: true});
     });
 });
@@ -205,7 +205,7 @@ app.get('/user', function (req, res) {
 app.post('/user', function (request, response) {
     var body = request.body;
     var db = require('./mysql');
-    db.query('insert into User (store_name, ceo_name, login_id, login_pw, tel, phone) values (?,?,?,?,?,?)', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone], function (err, result) {
+    db.query('insert into User (store_name, ceo_name, login_id, login_pw, tel, phone, contract_start, contract_duration, contract_end) values (?,?,?,?,?,?,?,?,?)', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone, body.contract_start, body.contract_duration, body.contract_end], function (err, result) {
         response.json({result: true});
     });
 });

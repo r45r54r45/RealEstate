@@ -45,7 +45,10 @@ class AddStorePage extends React.Component {
                 login_id: this.login_id.value,
                 login_pw: this.login_pw.value,
                 tel: this.tel.value,
-                phone: this.phone.value
+                phone: this.phone.value,
+                contract_start: this.contract_start.value,
+                contract_duration: this.contract_duration.value,
+                contract_end: this.contract_end.value
             })
         }).then(()=> {
             alert('업체가 추가되었습니다');
@@ -84,6 +87,18 @@ class AddStorePage extends React.Component {
                     <div className="row">
                         <label htmlFor="phone">휴대폰 번호</label>
                         <input id="phone" type="tel" ref={input=>this.phone = input}/>
+                    </div>
+                    <div className="row">
+                        <label htmlFor="phone">계약 시작일</label>
+                        <input id="phone" type="text" ref={input=>this.contract_start = input}/>
+                    </div>
+                    <div className="row">
+                        <label htmlFor="phone">계약 기간</label>
+                        <input id="phone" type="text" ref={input=>this.contract_duration = input}/>
+                    </div>
+                    <div className="row">
+                        <label htmlFor="phone">계약 종료일</label>
+                        <input id="phone" type="text" ref={input=>this.contract_end = input}/>
                     </div>
                     <div className="row">
                         <button onClick={this.submit}>업로드</button>

@@ -398,6 +398,31 @@ class UpdateStorePage extends React.Component {
                                    onChange={e=>this.mapValue(e.target, 'basic', 'phone')}/>
                         </div>
                         <div className="row">
+                            <label htmlFor="phone">동영상 재생 주기 (몇 매물마다)</label>
+                            <input id="phone" placeholder="숫자만 적어주세요" type="number" value={this.state.basic.video}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'video_num')}/>
+                        </div>
+                        <div className="row">
+                            <label htmlFor="phone">사진 재생 주기 (몇 매물마다)</label>
+                            <input id="phone" placeholder="숫자만 적어주세요" type="number" value={this.state.basic.image}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'image_num')}/>
+                        </div>
+                        <div className="row">
+                            <label htmlFor="phone">계약 시작일</label>
+                            <input id="phone" type="text" value={this.state.basic.contract_start}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'contract_start')}/>
+                        </div>
+                        <div className="row">
+                            <label htmlFor="phone">계약 기간</label>
+                            <input id="phone" type="text" value={this.state.basic.contract_duration}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'contract_duration')}/>
+                        </div>
+                        <div className="row">
+                            <label htmlFor="phone">계약 종료일</label>
+                            <input id="phone" type="text" value={this.state.basic.contract_end}
+                                   onChange={e=>this.mapValue(e.target, 'basic', 'contract_end')}/>
+                        </div>
+                        <div className="row">
                             <button onClick={this.editBasicSubmit}>기본정보 수정</button>
                         </div>
                     </form>
