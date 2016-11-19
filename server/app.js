@@ -150,6 +150,27 @@ app.get('/item', function (req, res) {
         });
     }
 });
+app.get('/view', function (req, res) {
+    var db = require('./mysql');
+    db.query('select i.id from Item i join User u on i.owner = u.id where u.id=?', [req.query.id], function (err, result) {
+        var length=result.length;
+        var counter=0;
+        var resultArray=[];
+        result.forEach(function(item, index){
+            var itemIdd=item.id;
+            db.query('select * from Item i where i.id=?', [itemId], function (err, result2) {
+                db.query('select * from Image where item=?', [itemId], function (err2, result3) {
+                    result2[0].images = result3;
+                    resultArray.push(result2[0]);
+                    counter++;
+                    if(counter==length){
+                        res.json({result: resultArray})
+                    }
+                })
+            });
+        })
+    });
+});
 app.delete('/item', function (req, res) {
     var db = require('./mysql');
     db.query('delete from Item where id=?', [req.query.id], function (err, result) {
