@@ -83,7 +83,9 @@ app.use('/img', _express2.default.static(__dirname + '/../image'));
 //         res.json(result);
 //     });
 // })
+app.post('/login', function(req, res){
 
+})
 app.post('/item', upload.array('image'), function (req, res) {
     var db = require('./mysql');
     var data = req.body;

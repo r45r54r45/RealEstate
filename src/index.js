@@ -29,7 +29,7 @@ function getUserType(){
     // }else if(localStorage.getItem('userType')=='customer'){
     //     return 2;
     // }
-    return 2;
+    return 1;
 
 }
 
@@ -55,7 +55,7 @@ function getTemplate(){
                 </Router>
             )
         case 2: //고객
-            if (getPageType() === 'ADMIN_PAGE') {
+            if (getPageType() !== 'VIEW_PAGE') {
                 return (
                     <Router history={browserHistory}>
                         {/*<Route path="/" component={App}>*/}
