@@ -199,7 +199,7 @@ class ViewScreen extends React.Component {
             slidesToScroll: 1
         };
         let currentData = this.state.current.data;
-        let percent = Math.floor(parseFloat(currentData.realArea) / parseFloat(currentData.producedArea) * 1000) / 10;
+        let percent = Math.floor(parseFloat(currentData.real_area) / parseFloat(currentData.produced_area) * 1000) / 10;
         return (
             <div className="ViewScreen">
                 <div className="whole-page-video-area" id="made-in-ny"
