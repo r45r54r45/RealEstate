@@ -387,7 +387,7 @@ function getBigPrice(item) {
         case 2:
             return item.m_price+'<span className="residue">만원 </span>';
         case 3:
-            return item.w_price+'<span className="residue">만원/</span> '+item.j_price+'<span className="residue">만원 </span>';
+            return item.w_price+'<span className="residue">만원/</span> '+item.b_price+'<span className="residue">만원 </span>';
     }
 }
 export default ViewScreen;
