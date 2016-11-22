@@ -391,11 +391,11 @@ class UserUpdateStorePage extends React.Component {
                                            onChange={e=>this.mapValue(e.target, 'editItem', 'file')} multiple/>
                                 </div>
                             </form>
-                            <div className="imageList">
+                            <div className="imageList" style={{flexWrap: 'wrap'}}>
                                 {this.state.editTempImageList.map((item, index)=> {
                                     return (
                                         <div key={index} className="imageItem"
-                                             style={{backgroundImage: `url(/img/${item.url})`}}>
+                                             style={{backgroundImage: `url(/img/${item.url})`, marginBottom: '10px'}}>
                                             <button onClick={this.deleteEditItemImage.bind(this, item.id)}>삭제</button>
                                         </div>
                                     )
