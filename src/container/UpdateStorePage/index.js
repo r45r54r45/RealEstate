@@ -269,6 +269,9 @@ class UpdateStorePage extends React.Component {
     handleDayClick(e, day, { selected }) {
         this.setState({
             selectedDay: selected ? null : day,
+        },()=>{
+            console.log("date: "+this.state.selectedDay?this.state.selectedDay.toLocaleDateString():"");
+            this.mapValue.bind(this,{value: this.state.selectedDay?this.state.selectedDay.toLocaleDateString():""}, 'basic', 'contract_start');
         });
     }
     mapValue(input, area, type) {
@@ -502,9 +505,9 @@ class UpdateStorePage extends React.Component {
                             </div>
                             <div className="row">
                                 <label htmlFor="phone">계약 시작일</label>
-                                <input id="phone" type="text" value={this.state.basic.contract_start}
-                                       onChange={this.mapValue.bind(this,{value: this.state.selectedDay?this.state.selectedDay.toLocaleDateString():""}, 'basic', 'contract_start')}/>
+                                <input id="phone" type="text" value={this.state.basic.contract_start} readOnly/>
                                 <DayPicker
+                                    style={{width: '229px'}}
                                     dir={false}
                                     locale={ 'ko' }
                                     localeUtils={ MomentLocaleUtils }
