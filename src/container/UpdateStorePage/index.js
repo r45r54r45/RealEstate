@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.scss'
 import ShowHide from '../../component/ShowHide'
-
+import Loading from 'react-loading-animation';
 
 class UpdateStorePage extends React.Component {
     constructor() {
