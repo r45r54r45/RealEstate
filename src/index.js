@@ -27,7 +27,7 @@ function getUserType(){
     2. 고객
     3. 비로그인
      */
-    // return 2;
+    return 2;
 
     if(!localStorage.getItem('userType')){
         return 3;
