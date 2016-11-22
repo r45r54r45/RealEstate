@@ -2,6 +2,10 @@ import React from 'react'
 import './style.scss'
 import ShowHide from '../../component/ShowHide'
 import Loading from 'react-loading-animation';
+import DayPicker from 'react-day-picker';
+import MomentLocaleUtils from 'react-day-picker/moment';
+import 'moment/locale/ko';
+import 'react-day-picker/lib/style.css';
 
 class UpdateStorePage extends React.Component {
     constructor() {
@@ -20,7 +24,8 @@ class UpdateStorePage extends React.Component {
             basic: {},
             itemList: [],
             editTempImageList: [],
-            loading: false
+            loading: false,
+            selectedDay: null
         }
         this.editBasic = this.editBasic.bind(this);
         this.newItem = this.newItem.bind(this);
@@ -33,6 +38,7 @@ class UpdateStorePage extends React.Component {
         this.editBasicSubmit = this.editBasicSubmit.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.deleteUser=this.deleteUser.bind(this);
+        this.handleDayClick=this.handleDayClick.bind(this);
     }
 
     componentWillMount() {
@@ -260,7 +266,11 @@ class UpdateStorePage extends React.Component {
             }
         })
     }
-
+    handleDayClick(e, day, { selected }) {
+        this.setState({
+            selectedDay: selected ? null : day,
+        });
+    }
     mapValue(input, area, type) {
         if (type === "file") {
             let files = input.files;
@@ -493,7 +503,14 @@ class UpdateStorePage extends React.Component {
                             <div className="row">
                                 <label htmlFor="phone">계약 시작일</label>
                                 <input id="phone" type="text" value={this.state.basic.contract_start}
-                                       onChange={e=>this.mapValue(e.target, 'basic', 'contract_start')}/>
+                                       onChange={this.mapValue.bind(this,{value: this.state.selectedDay.toLocaleDateString()}, 'basic', 'contract_start')}/>
+                                <DayPicker
+                                    dir={false}
+                                    locale={ 'ko' }
+                                    localeUtils={ MomentLocaleUtils }
+                                    modifiers={ { sunday: day => day.getDay() === 0 } }
+                                    onDayClick={ this.handleDayClick }
+                                />
                             </div>
                             <div className="row">
                                 <label htmlFor="phone">계약 기간</label>
