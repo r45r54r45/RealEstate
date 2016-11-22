@@ -353,6 +353,8 @@ class UpdateStorePage extends React.Component {
                         <button className="newItemButton" onClick={this.newItem}>새 매물</button>
                     </ShowHide>
                     <button onClick={this.deleteUser} className="newItemButton">업체 삭제</button>
+                    <button onClick={e=>{var newWindow = window.open("about:blank");
+                        newWindow.location.href = 'http://104.197.153.50/view?id='+this.props.location.query.id}} className="newItemButton">업체 미리보기</button>
                     {this.state.current === 'list' ? (
                         <div className="ItemList">
                             <h3>매물 리스트</h3>
