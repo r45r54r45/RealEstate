@@ -37,8 +37,8 @@ class UpdateStorePage extends React.Component {
         this.deleteEditItemImage = this.deleteEditItemImage.bind(this);
         this.editBasicSubmit = this.editBasicSubmit.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
-        this.deleteUser=this.deleteUser.bind(this);
-        this.handleDayClick=this.handleDayClick.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
+        this.handleDayClick = this.handleDayClick.bind(this);
     }
 
     componentWillMount() {
@@ -48,20 +48,22 @@ class UpdateStorePage extends React.Component {
             })
         })
     }
-    deleteUser(){
+
+    deleteUser() {
         this.setState({
             loading: true
         })
-        fetch('/user?id=' + this.props.location.query.id,{
-            method:"DELETE"
+        fetch('/user?id=' + this.props.location.query.id, {
+            method: "DELETE"
         }).then(dat=>dat.json()).then(data=> {
             this.setState({
                 loading: false
             })
             alert('삭제 완료');
-            location.href="/";
+            location.href = "/";
         })
     }
+
     deleteEditItemImage(imageId) {
         let index = this.state.editTempImageList.findIndex((item)=> {
             return item.id = imageId;
@@ -266,14 +268,20 @@ class UpdateStorePage extends React.Component {
             }
         })
     }
-    handleDayClick(e, day, { selected }) {
+
+    handleDayClick(e, day, {selected}) {
         this.setState({
-            selectedDay: selected ? null : day,
-        },()=>{
-            console.log("date: "+this.state.selectedDay?this.state.selectedDay.toLocaleDateString():"");
-            this.mapValue.bind(this,{value: this.state.selectedDay?this.state.selectedDay.toLocaleDateString():""}, 'basic', 'contract_start');
+            selectedDay: selected ? null : day
+        }, ()=> {
+            this.setState({
+                basic: Object.assign({},this.state.basic,{
+                    contract_start: this.state.selectedDay ? this.state.selectedDay.toLocaleDateString() : ""
+                })
+            })
+            this.mapValue.bind(this, {value: this.state.selectedDay ? this.state.selectedDay.toLocaleDateString() : ""}, 'basic', 'contract_start');
         });
     }
+
     mapValue(input, area, type) {
         if (type === "file") {
             let files = input.files;
@@ -511,7 +519,7 @@ class UpdateStorePage extends React.Component {
                                     dir={false}
                                     locale={ 'ko' }
                                     localeUtils={ MomentLocaleUtils }
-                                    modifiers={ { sunday: day => day.getDay() === 0 } }
+                                    modifiers={ {sunday: day => day.getDay() === 0} }
                                     onDayClick={ this.handleDayClick }
                                 />
                             </div>
