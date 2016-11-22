@@ -53,7 +53,7 @@ class UpdateStorePage extends React.Component {
                 loading: false
             })
             alert('삭제 완료');
-            location.reload();
+            location.href="/";
         })
     }
     deleteEditItemImage(imageId) {
