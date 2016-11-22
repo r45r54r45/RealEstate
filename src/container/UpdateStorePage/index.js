@@ -46,7 +46,7 @@ class UpdateStorePage extends React.Component {
         this.setState({
             loading: true
         })
-        fetch('/item?id=' + this.props.location.query.id,{
+        fetch('/user?id=' + this.props.location.query.id,{
             method:"DELETE"
         }).then(dat=>dat.json()).then(data=> {
             this.setState({
@@ -115,7 +115,7 @@ class UpdateStorePage extends React.Component {
                 this.setState({
                     loading: false
                 })
-                // location.reload();
+                location.reload();
             })
         }
     }
