@@ -83,14 +83,14 @@ app.use('/img', _express2.default.static(__dirname + '/../image'));
 //         res.json(result);
 //     });
 // })
-app.post('/login', function(req, res){
+app.post('/login', function (req, res) {
     var db = require('./mysql');
-    db.query("select id from User where login_id=? and login_pw=?",[ req.body.login_id, req.body.login_pw], function(err, result){
-      if(result.length===0){
-          res.json({result: false});
-      } else{
-          res.json({result: true, userId: result[0].id});
-      }
+    db.query("select id from User where login_id=? and login_pw=?", [req.body.login_id, req.body.login_pw], function (err, result) {
+        if (result.length === 0) {
+            res.json({result: false});
+        } else {
+            res.json({result: true, userId: result[0].id});
+        }
     })
 });
 app.post('/item', upload.array('image'), function (req, res) {
@@ -162,22 +162,22 @@ app.get('/item', function (req, res) {
 app.get('/view', function (req, res) {
     var db = require('./mysql');
     db.query('select * from User where id=?', [req.query.id], function (err, result0) {
-        var basic=result0[0];
+        var basic = result0[0];
         db.query('select i.id from Item i join User u on i.owner = u.id where u.id=?', [req.query.id], function (err, result) {
-            var length=result.length;
-            var counter=0;
-            var resultArray=[];
-            result.forEach(function(item, index){
-                var itemId=item.id;
+            var length = result.length;
+            var counter = 0;
+            var resultArray = [];
+            result.forEach(function (item, index) {
+                var itemId = item.id;
                 db.query('select * from Item i where i.id=?', [itemId], function (err, result2) {
                     db.query('select * from Image where item=?', [itemId], function (err2, result3) {
-                        result3=result3.map(function(item){
-                            return "http://104.197.153.50/img/"+item.url;
+                        result3 = result3.map(function (item) {
+                            return "http://104.197.153.50/img/" + item.url;
                         });
                         result2[0].images = result3;
                         resultArray.push(result2[0]);
                         counter++;
-                        if(counter==length){
+                        if (counter == length) {
                             res.json({list: resultArray, basic: basic})
                         }
                     })
@@ -196,12 +196,12 @@ app.put('/user', upload.array('image'), function (request, res) {
     var body = request.body;
     var db = require('./mysql');
     var filename;
-    if(request.files[0]){
-        filename=request.files[0].filename;
-    }else{
-        filename=null;
+    if (request.files[0]) {
+        filename = request.files[0].filename;
+    } else {
+        filename = null;
     }
-    db.query('update User set store_name=?, ceo_name=?, login_id=?, login_pw=?, tel=?, phone=?, video_num=?, image_num=? ,contract_start=?, contract_duration=?, contract_end=?, video_id=?, image_url=? where id=?', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone, body.video_num, body.image_num, body.contract_start, body.contract_duration, body.contract_end, body.video_id, filename ,request.query.id], function (err, result) {
+    db.query('update User set store_name=?, ceo_name=?, login_id=?, login_pw=?, tel=?, phone=?, video_num=?, image_num=? ,contract_start=?, contract_duration=?, contract_end=?, video_id=?, image_url=? where id=?', [body.store_name, body.ceo_name, body.login_id, body.login_pw, body.tel, body.phone, body.video_num, body.image_num, body.contract_start, body.contract_duration, body.contract_end, body.video_id, filename, request.query.id], function (err, result) {
         res.json({result: true});
     });
 });
@@ -216,6 +216,14 @@ app.get('/user', function (req, res) {
             res.json({result: result});
         });
     }
+});
+app.delete('/user', function (req, res) {
+    var db = require('./mysql');
+    let id = req.query.id
+    db.query('delete from User where id=?', [id], function (err, result) {
+        res.json({result: true});
+    });
+
 });
 app.post('/user', function (request, response) {
     var body = request.body;
