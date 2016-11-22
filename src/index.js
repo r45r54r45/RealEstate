@@ -61,7 +61,7 @@ function getTemplate() {
                         <IndexRoute component={StatusPage}/>
                         <Route path="add" component={AddStorePage}/>
                         <Route path="update/:storeId" component={UpdateStorePage}/>
-                        <Route path="view" component={AdminViewTemplate}>
+                        <Route path="preview" component={AdminViewTemplate}>
                             <IndexRoute component={AdminViewScreen}/>
                             <Route path="*" component={NoMatch}/>
                         </Route>
