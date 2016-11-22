@@ -6,6 +6,7 @@ import DayPicker from 'react-day-picker';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import 'moment/locale/ko';
 import 'react-day-picker/lib/style.css';
+import sv from '../../../server/server'
 
 class UpdateStorePage extends React.Component {
     constructor() {
@@ -25,7 +26,8 @@ class UpdateStorePage extends React.Component {
             itemList: [],
             editTempImageList: [],
             loading: false,
-            selectedDay: null
+            selectedDay: null,
+            contract_end: null
         }
         this.editBasic = this.editBasic.bind(this);
         this.newItem = this.newItem.bind(this);
@@ -39,12 +41,18 @@ class UpdateStorePage extends React.Component {
         this.deleteItem = this.deleteItem.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
+        this.computeDate=this.computeDate.bind(this);
     }
 
     componentWillMount() {
-        fetch('/item?id=' + this.props.location.query.id).then(dat=>dat.json()).then(data=> {
+        fetch(sv+'/item?id=' + this.props.location.query.id).then(dat=>dat.json()).then(data=> {
             this.setState({
                 itemList: data.result
+            })
+        })
+        fetch(sv+'/date?id=' + this.props.location.query.id).then(dat=>dat.json()).then(data=> {
+            this.setState({
+                contract_end: data.result
             })
         })
     }
@@ -53,7 +61,7 @@ class UpdateStorePage extends React.Component {
         this.setState({
             loading: true
         })
-        fetch('/user?id=' + this.props.location.query.id, {
+        fetch(sv+'/user?id=' + this.props.location.query.id, {
             method: "DELETE"
         }).then(dat=>dat.json()).then(data=> {
             this.setState({
@@ -87,7 +95,7 @@ class UpdateStorePage extends React.Component {
         this.setState({
             loading: true
         })
-        fetch('/item?id=' + this.props.location.query.id, {
+        fetch(sv+'/item?id=' + this.props.location.query.id, {
             method: "POST",
             body: formDataSerialize(this.state.newItem)
         }).then(dat=>dat.json()).then(result=> {
@@ -117,7 +125,7 @@ class UpdateStorePage extends React.Component {
             this.setState({
                 loading: true
             })
-            fetch('/item?id=' + id, {
+            fetch(sv+'/item?id=' + id, {
                 method: "DELETE"
             }).then(dat=>dat.json).then(data=> {
                 this.setState({
@@ -133,7 +141,7 @@ class UpdateStorePage extends React.Component {
         this.setState({
             loading: true
         })
-        fetch('/user?id=' + this.props.location.query.id, {
+        fetch(sv+'/user?id=' + this.props.location.query.id, {
             method: "PUT",
             body: formDataSerialize(this.state.basic)
         }).then(dat=>dat.json()).then(result=> {
@@ -143,6 +151,11 @@ class UpdateStorePage extends React.Component {
                     loading: false
                 })
                 alert('업로드 성공');
+                fetch(sv+'/date?id=' + this.props.location.query.id).then(dat=>dat.json()).then(data=> {
+                    this.setState({
+                        contract_end: data.result
+                    })
+                })
                 this.editBasic();
             }
             this.setState({
@@ -162,7 +175,7 @@ class UpdateStorePage extends React.Component {
         this.setState({
             loading: true
         })
-        fetch('/item?id=' + this.state.editItem.id, {
+        fetch(sv+'/item?id=' + this.state.editItem.id, {
             method: "PUT",
             body: formDataSerialize(this.state.editItem)
         }).then(dat=>dat.json()).then(result=> {
@@ -197,7 +210,7 @@ class UpdateStorePage extends React.Component {
             this.setState({
                 loading: true
             })
-            fetch('/user?id=' + this.props.location.query.id).then(dat=>dat.json()).then((result)=> {
+            fetch(sv+'/user?id=' + this.props.location.query.id).then(dat=>dat.json()).then((result)=> {
                 this.setState(
                     {
                         current: 'basic',
@@ -238,7 +251,7 @@ class UpdateStorePage extends React.Component {
             this.setState({
                 loading: true
             })
-            fetch('/item?item=' + type.data.id).then(dat=>dat.json()).then((data)=> {
+            fetch(sv+'/item?item=' + type.data.id).then(dat=>dat.json()).then((data)=> {
                 this.setState({
                     editItem: data.result,
                     editTempImageList: data.result.images
@@ -270,6 +283,7 @@ class UpdateStorePage extends React.Component {
     }
 
     handleDayClick(e, day, {selected}) {
+        console.log(day);
         this.setState({
             selectedDay: selected ? null : day
         }, ()=> {
@@ -277,9 +291,25 @@ class UpdateStorePage extends React.Component {
                 basic: Object.assign({},this.state.basic,{
                     contract_start: this.state.selectedDay ? this.state.selectedDay.toLocaleDateString() : ""
                 })
+            },()=>{
+                this.mapValue({value: this.state.selectedDay ? this.state.selectedDay.toLocaleDateString() : ""}, 'basic', 'contract_start');
+                this.computeDate(this.state.basic.contract_duration);
             })
-            this.mapValue.bind(this, {value: this.state.selectedDay ? this.state.selectedDay.toLocaleDateString() : ""}, 'basic', 'contract_start');
+
         });
+    }
+
+    computeDate(date){
+        let start=new Date(this.state.basic.contract_start);
+        start.setMonth(start.getMonth()+parseInt(date));
+        let result=start.toLocaleDateString();
+        this.mapValue({value: start}, 'basic', 'contract_end');
+        this.setState({
+            basic: Object.assign({},this.state.basic,{
+                contract_end: result,
+                contract_duration: date
+            })
+        })
     }
 
     mapValue(input, area, type) {
@@ -315,7 +345,7 @@ class UpdateStorePage extends React.Component {
         return (
             <Loading isLoading={this.state.loading} style={{marginTop: '100px'}}>
                 <div className="UpdateStorePage">
-                    <h1>{name}
+                    <h1>{name} <span className="expire">(만료: {!this.state.contract_end?"미지정":this.state.contract_end})</span>
 
                     </h1>
                     <button onClick={this.editBasic} className="newItemButton">기본 정보 수정</button>
@@ -516,7 +546,7 @@ class UpdateStorePage extends React.Component {
                                 <input id="phone" type="text" value={this.state.basic.contract_start} readOnly/>
                                 <DayPicker
                                     style={{width: '229px'}}
-                                    dir={false}
+                                    dir="false"
                                     locale={ 'ko' }
                                     localeUtils={ MomentLocaleUtils }
                                     modifiers={ {sunday: day => day.getDay() === 0} }
@@ -525,13 +555,18 @@ class UpdateStorePage extends React.Component {
                             </div>
                             <div className="row">
                                 <label htmlFor="phone">계약 기간</label>
-                                <input id="phone" type="text" value={this.state.basic.contract_duration}
-                                       onChange={e=>this.mapValue(e.target, 'basic', 'contract_duration')}/>
+                                <select value={this.state.basic.contract_duration} onChange={e=>{this.mapValue(e.target, 'basic', 'contract_duration'); this.computeDate(e.target.value)}} style={{width:'129px'}}>
+                                    {[1,2,3,4,5,6,7,8,9,10,11,12].map((item, index)=>{
+                                        return (
+                                            <option key={index} value={item}>{item} 개월</option>
+                                        )
+                                    })}
+                                </select>
+
                             </div>
                             <div className="row">
                                 <label htmlFor="phone">계약 종료일</label>
-                                <input id="phone" type="text" value={this.state.basic.contract_end}
-                                       onChange={e=>this.mapValue(e.target, 'basic', 'contract_end')}/>
+                                <input id="phone" type="text" value={this.state.basic.contract_end} readOnly/>
                             </div>
                             <div className="row">
                                 <button onClick={this.editBasicSubmit}>기본정보 수정</button>

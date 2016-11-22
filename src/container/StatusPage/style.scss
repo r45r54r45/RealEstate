@@ -1,6 +1,23 @@
 .StatusPage{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height:100vh;
+    padding: 10px;
+    ol{
+        a{
+            text-decoration: none;
+            li{
+                color: black;
+                margin: 20px 0;
+                .name{
+                    color: black;
+                }
+                .expire{
+                    color: #ff4b69;
+                }
+            }
+        }
+        a:visited{
+            text-decoration: none;
+        }
+
+    }
+
 }

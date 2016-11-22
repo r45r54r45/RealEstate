@@ -214,8 +214,39 @@ class ViewScreen extends React.Component {
         };
         let currentData = this.state.current.data;
         let percent = Math.floor(parseFloat(currentData.real_area) / parseFloat(currentData.produced_area) * 1000) / 10;
+        const css = `
+                body {
+                    overflow: hidden;
+                }
+
+                    @media(max-width: 768px) {
+                    html {
+                    font-size: 5px;
+                }
+                }
+
+                    @media screen and (min-width: 768px) and (max-width: 1100px) {
+                    html {
+                    font-size: 11px;
+                }
+                }
+
+                    @media screen and (min-width: 1100px) and (max-width: 1600px) {
+                    html {
+                    font-size: 16px;
+                }
+                }
+
+                    @media screen and (min-width: 1600px) {
+                    html {
+                    font-size: 21px;
+                }
+                }
+            `;
         return (
             <div className="ViewScreen">
+                <style>{css}
+                </style>
                 <div className="whole-page-video-area" id="made-in-ny"
                      style={!this.state.videoPlay ? {display: 'none'} : {}}></div>
                 <div className="whole-page-image-area"

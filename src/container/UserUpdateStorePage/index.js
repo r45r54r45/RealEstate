@@ -21,7 +21,8 @@ class UserUpdateStorePage extends React.Component {
             basic: {},
             itemList: [],
             editTempImageList: [],
-            loading: false
+            loading: false,
+            contract_end: null
         }
         this.editBasic = this.editBasic.bind(this);
         this.newItem = this.newItem.bind(this);
@@ -39,6 +40,11 @@ class UserUpdateStorePage extends React.Component {
         fetch('/item?id=' + localStorage.getItem("userId")).then(dat=>dat.json()).then(data=> {
             this.setState({
                 itemList: data.result
+            })
+        })
+        fetch('/date?id=' + localStorage.getItem("userId")).then(dat=>dat.json()).then(data=> {
+            this.setState({
+                contract_end: data.result
             })
         })
     }
@@ -265,6 +271,7 @@ class UserUpdateStorePage extends React.Component {
         return (
             <Loading isLoading={this.state.loading} style={{marginTop: '100px'}}>
                 <div className="UpdateStorePage">
+                    <div className="expire">(만료: {!this.state.contract_end?"미지정":this.state.contract_end})</div>
                     <button onClick={this.editBasic} className="newItemButton">기본 정보 수정</button>
                     <ShowHide show={this.state.current !== 'new'}>
                         <button className="newItemButton" onClick={this.newItem}>새 매물</button>

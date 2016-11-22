@@ -225,6 +225,19 @@ app.delete('/user', function (req, res) {
     });
 
 });
+app.get('/expire',function(req, res){
+    var db = require('./mysql');
+    db.query('select id, store_name,contract_end from User ORDER BY contract_end asc', function (err, result) {
+        res.json(result);
+    });
+})
+app.get('/date',function(req, res){
+    var db = require('./mysql');
+    let id = req.query.id;
+    db.query('select contract_end from User where id=?', [id], function (err, result) {
+        res.json({result:result[0].contract_end});
+    });
+})
 app.post('/user', function (request, response) {
     var body = request.body;
     var db = require('./mysql');

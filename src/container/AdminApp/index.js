@@ -3,6 +3,7 @@ import {Link} from 'react-router'
 import './style.scss'
 import logo from './logo.png';
 import Hangul from 'hangul-js';
+import sv from '../../../server/server'
 
 class AdminApp extends React.Component {
     constructor(){
@@ -14,7 +15,7 @@ class AdminApp extends React.Component {
         this.onSearch=this.onSearch.bind(this);
     }
     componentWillMount(){
-        fetch('/user').then(dat=>dat.json()).then((result)=>{
+        fetch(sv+'/user').then(dat=>dat.json()).then((result)=>{
             this.setState({
                 storeList: result.result,
                 shownList: result.result
@@ -36,8 +37,13 @@ class AdminApp extends React.Component {
         },this);
     }
     render() {
+        let css=`
+            html{ font-size: 14px;}
+`;
         return (
             <div className="AdminApp">
+                <style>{css}
+                    </style>
                 <div className="left-area">
                     <div className="info-area">
                         <img src={logo} style={{width: '80%'}}/>
