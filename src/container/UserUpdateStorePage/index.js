@@ -464,17 +464,17 @@ class UserUpdateStorePage extends React.Component {
                                 <input id="phone" type="file"
                                        onChange={e=>this.mapValue(e.target, 'basic', 'file')}/>
                             </div>
-                            <div className="row">
+                            <div className="row" style={{display: 'none'}}>
                                 <label htmlFor="phone">계약 시작일</label>
                                 <input id="phone" type="text" value={this.state.basic.contract_start}
                                        onChange={e=>this.mapValue(e.target, 'basic', 'contract_start')}/>
                             </div>
-                            <div className="row">
+                            <div className="row" style={{display: 'none'}}>
                                 <label htmlFor="phone">계약 기간</label>
                                 <input id="phone" type="text" value={this.state.basic.contract_duration}
                                        onChange={e=>this.mapValue(e.target, 'basic', 'contract_duration')}/>
                             </div>
-                            <div className="row">
+                            <div className="row" style={{display: 'none'}}>
                                 <label htmlFor="phone">계약 종료일</label>
                                 <input id="phone" type="text" value={this.state.basic.contract_end}
                                        onChange={e=>this.mapValue(e.target, 'basic', 'contract_end')}/>
