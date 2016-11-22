@@ -115,7 +115,7 @@ class UpdateStorePage extends React.Component {
                 this.setState({
                     loading: false
                 })
-                location.reload();
+                // location.reload();
             })
         }
     }
