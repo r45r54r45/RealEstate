@@ -1,9 +1,21 @@
 import React from 'react'
 import './style.scss'
+import DayPicker from 'react-day-picker';
+import MomentLocaleUtils from 'react-day-picker/moment';
+import 'moment/locale/ko';
+import 'react-day-picker/lib/style.css';
+
 class AddStorePage extends React.Component {
     constructor(){
         super();
+        this.state={
+            contract_start: null,
+            selectedDay: null,
+            contract_duration: 1,
+            contract_end: null
+        }
         this.submit=this.submit.bind(this);
+        this.handleDayClick=this.handleDayClick.bind(this);
     }
     submit() {
         if (this.store_name.value == "") {
@@ -46,14 +58,42 @@ class AddStorePage extends React.Component {
                 login_pw: this.login_pw.value,
                 tel: this.tel.value,
                 phone: this.phone.value,
-                contract_start: this.contract_start.value,
-                contract_duration: this.contract_duration.value,
-                contract_end: this.contract_end.value
+                contract_start: this.state.contract_start,
+                contract_duration: this.state.contract_duration,
+                contract_end: this.state.contract_end
             })
         }).then(()=> {
             alert('업체가 추가되었습니다');
             location.href = "/";
         })
+    }
+    handleDayClick(e, day, {selected}){
+        this.setState({
+            selectedDay: selected ? null : day
+        }, ()=> {
+            this.setState({
+                    contract_start: this.state.selectedDay ? this.state.selectedDay.toLocaleDateString() : ""
+            },()=>{
+                this.computeDate(this.state.contract_duration);
+            })
+        });
+    }
+    computeDate(date){
+        if(!this.state.contract_start){
+            alert('먼저 계약 시작일을 선택해주세요');
+            return;
+        }else{
+            this.setState({
+                contract_duration: date
+            });
+        }
+        let start=new Date(this.state.contract_start);
+        start.setMonth(start.getMonth()+parseInt(date));
+        let result=start.toLocaleDateString();
+
+        this.setState({
+            contract_end: result
+        });
     }
     render() {
         return (
@@ -90,16 +130,43 @@ class AddStorePage extends React.Component {
                     </div>
                     <div className="row">
                         <label htmlFor="phone">계약 시작일</label>
-                        <input id="phone" type="text" ref={input=>this.contract_start = input}/>
+                        <input id="phone" type="text" value={this.state.contract_start} placeholder="아래에서 클릭" readOnly/>
+                        <DayPicker
+                            style={{width: '229px'}}
+                            dir="false"
+                            locale={ 'ko' }
+                            localeUtils={ MomentLocaleUtils }
+                            modifiers={ {sunday: day => day.getDay() === 0} }
+                            onDayClick={ this.handleDayClick }
+                        />
                     </div>
                     <div className="row">
                         <label htmlFor="phone">계약 기간</label>
-                        <input id="phone" type="text" ref={input=>this.contract_duration = input}/>
+                        <select defaultValue={1} value={this.state.contract_duration} onChange={e=>{this.computeDate(e.target.value)}} style={{width:'129px'}}>
+                            {[1,2,3,4,5,6,7,8,9,10,11,12].map((item, index)=>{
+                                return (
+                                    <option key={index} value={item}>{item} 개월</option>
+                                )
+                            })}
+                        </select>
+
                     </div>
                     <div className="row">
                         <label htmlFor="phone">계약 종료일</label>
-                        <input id="phone" type="text" ref={input=>this.contract_end = input}/>
+                        <input id="phone" type="text" value={this.state.contract_end} readOnly/>
                     </div>
+                    {/*<div className="row">*/}
+                        {/*<label htmlFor="phone">계약 시작일</label>*/}
+                        {/*<input id="phone" type="text" ref={input=>this.contract_start = input}/>*/}
+                    {/*</div>*/}
+                    {/*<div className="row">*/}
+                        {/*<label htmlFor="phone">계약 기간</label>*/}
+                        {/*<input id="phone" type="text" ref={input=>this.contract_duration = input}/>*/}
+                    {/*</div>*/}
+                    {/*<div className="row">*/}
+                        {/*<label htmlFor="phone">계약 종료일</label>*/}
+                        {/*<input id="phone" type="text" ref={input=>this.contract_end = input}/>*/}
+                    {/*</div>*/}
                     <div className="row">
                         <button onClick={this.submit}>업로드</button>
                     </div>
