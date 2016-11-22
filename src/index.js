@@ -57,14 +57,14 @@ function getTemplate() {
         case 1: //관리자
             return (
                 <Router history={browserHistory}>
+                    <Route path="/preview" component={AdminViewTemplate}>
+                        <IndexRoute component={AdminViewScreen}/>
+                        <Route path="*" component={NoMatch}/>
+                    </Route>
                     <Route path="/" component={AdminApp}>
                         <IndexRoute component={StatusPage}/>
                         <Route path="add" component={AddStorePage}/>
                         <Route path="update/:storeId" component={UpdateStorePage}/>
-                        <Route path="*" component={NoMatch}/>
-                    </Route>
-                    <Route path="/preview" component={AdminViewTemplate}>
-                        <IndexRoute component={AdminViewScreen}/>
                         <Route path="*" component={NoMatch}/>
                     </Route>
                 </Router>
