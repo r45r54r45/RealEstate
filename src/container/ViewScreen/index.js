@@ -414,7 +414,7 @@ class ViewScreen extends React.Component {
                     <img className="right" src="http://realty.mfamily.co.kr/images/footer_imgr.png"
                          role="presentation"/>
                     <div className="marquee-wrapper">
-                        <p className="marquee">안녕하세요. {this.state.basic.store_name} 입니다. </p>
+                        <p className="marquee">{this.state.basic.message} </p>
                     </div>
                 </div>
             </div>

@@ -266,6 +266,9 @@ class ViewScreen extends React.Component {
                                     })}
                                 </Slider>
                             ) : (""))}
+                            <div className="additional-info">
+                                공급  {Math.floor(currentData.produced_area/3.3*10)/10}평/ 전용 {Math.floor(currentData.real_area/3.3*10)/10}평
+                            </div>
                         </div>
                         <div className="info-area">
                             <div className="left-area">
@@ -407,7 +410,7 @@ class ViewScreen extends React.Component {
                     <img className="right" src="http://realty.mfamily.co.kr/images/footer_imgr.png"
                          role="presentation"/>
                     <div className="marquee-wrapper">
-                        <p className="marquee">안녕하세요. {this.state.basic.store_name} 입니다. </p>
+                        <p className="marquee">{this.state.basic.message}</p>
                     </div>
                 </div>
             </div>

@@ -443,6 +443,11 @@ class UserUpdateStorePage extends React.Component {
                                        onChange={e=>this.mapValue(e.target, 'basic', 'phone')}/>
                             </div>
                             <div className="row">
+                                <label htmlFor="phone">하단 메세지</label>
+                                <input id="phone" type="text" value={this.state.basic.message}
+                                       onChange={e=>this.mapValue(e.target, 'basic', 'message')}/>
+                            </div>
+                            <div className="row">
                                 <label htmlFor="phone">동영상 재생 주기 (몇 매물마다)</label>
                                 <input id="phone" placeholder="숫자만 적어주세요" type="number"
                                        value={this.state.basic.video_num}
