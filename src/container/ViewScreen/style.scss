@@ -63,7 +63,15 @@
       border: 10px solid rgba(243, 140, 30, 0.7);
       .slide-area {
         height: calc(74.95% + 5px);
+        position: relative;
         overflow: hidden;
+        .additional-info{
+          position: absolute;
+          width: 50%;
+          height: 20%;
+          bottom:0;
+          right:0;
+        }
         .img-wrapper {
           display: flex;
           align-items: center;
