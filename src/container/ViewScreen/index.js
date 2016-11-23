@@ -267,7 +267,7 @@ class ViewScreen extends React.Component {
                                 </Slider>
                             ) : (""))}
                             <div className="additional-info">
-                               공급  {currentData.produced_area/3.3}평/ 전용 {currentData.real_area/3.3}평
+                               공급  {Math.floor(currentData.produced_area/3.3*10)/10}평/ 전용 {Math.floor(currentData.real_area/3.3*10)/10}평
                             </div>
                         </div>
                         <div className="info-area">
