@@ -60,8 +60,8 @@ class Login extends React.Component{
                     <div><img style={{width:'100%'}} src={logo}/></div>
                     {/*<div className="title">로그인</div>*/}
                     <div className="input-area">
-                        <input ref={input=>this.id=input} className="id" placeholder="아이디" type="text" value={localStorage.getItem("stored_id")||""}/>
-                        <input ref={input=>this.pw=input} className="pw" placeholder="비밀번호" type="password" value={localStorage.getItem("stored_pw")||""}/>
+                        <input ref={input=>this.id=input} className="id" placeholder="아이디" type="text" defaultValue={localStorage.getItem("stored_id")||""}/>
+                        <input ref={input=>this.pw=input} className="pw" placeholder="비밀번호" type="password" defaultValue={localStorage.getItem("stored_pw")||""}/>
                         <label htmlFor="viewMode" style={{fontSize: '15px'}}>
                             <input onChange={e=>this.setState({viewMode:!this.state.viewMode})} id="viewMode" type="checkbox" value="Bike"/>
                             뷰모드
