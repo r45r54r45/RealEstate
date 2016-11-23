@@ -8,7 +8,8 @@ class Login extends React.Component{
         super();
         this.login=this.login.bind(this);
         this.state={
-            viewMode: false
+            viewMode: false,
+            saveMode: false
         }
     }
     login(){
@@ -19,6 +20,10 @@ class Login extends React.Component{
         }else if(this.pw.value===''){
             this.pw.focus()
             return;
+        }
+        if(this.state.saveMode===true){
+            localStorage.setItem("store_id",this.id.value);
+            localStorage.setItem("store_pw",this.pw.value);
         }
         //test code
         if(this.id.value==='admin'&&this.pw.value==='admin'){
@@ -55,11 +60,15 @@ class Login extends React.Component{
                     <div><img style={{width:'100%'}} src={logo}/></div>
                     {/*<div className="title">로그인</div>*/}
                     <div className="input-area">
-                        <input ref={input=>this.id=input} className="id" placeholder="아이디" type="text"/>
-                        <input ref={input=>this.pw=input} className="pw" placeholder="비밀번호" type="password"/>
+                        <input ref={input=>this.id=input} className="id" placeholder="아이디" type="text" value={localStorage.getItem("stored_id")||""}/>
+                        <input ref={input=>this.pw=input} className="pw" placeholder="비밀번호" type="password" value={localStorage.getItem("stored_pw")||""}/>
                         <label htmlFor="viewMode" style={{fontSize: '15px'}}>
                             <input onChange={e=>this.setState({viewMode:!this.state.viewMode})} id="viewMode" type="checkbox" value="Bike"/>
                             뷰모드
+                        </label>
+                        <label htmlFor="save" style={{fontSize: '15px'}}>
+                            <input onChange={e=>this.setState({saveMode:!this.state.saveMode})} id="save" type="checkbox"/>
+                            아이디/비번 저장
                         </label>
                     </div>
                     <div className="button">
