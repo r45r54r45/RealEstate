@@ -24,8 +24,8 @@ class Login extends React.Component{
             return;
         }
         if(this.state.saveMode===true){
-            localStorage.setItem("store_id",this.id.value);
-            localStorage.setItem("store_pw",this.pw.value);
+            localStorage.setItem("stored_id",this.id.value);
+            localStorage.setItem("stored_pw",this.pw.value);
         }
         //test code
         if(this.id.value==='admin'&&this.pw.value==='admin'){
