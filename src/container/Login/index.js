@@ -63,9 +63,9 @@ class Login extends React.Component{
                     {/*<div className="title">로그인</div>*/}
                     <div className="input-area">
                         <input ref={input=>this.id=input} className="id" placeholder="아이디" type="text"
-                               onChange={e=>this.setState({stored_id: e.target.value})} />
+                               onChange={e=>this.setState({stored_id: e.target.value})} value={this.state.stored_id}/>
                         <input ref={input=>this.pw=input} className="pw" placeholder="비밀번호"
-                               onChange={e=>this.setState({stored_pw: e.target.value})} type="password"/>
+                               onChange={e=>this.setState({stored_pw: e.target.value})} value={this.state.stored_pw} type="password"/>
                         <label htmlFor="viewMode" style={{fontSize: '15px'}}>
                             <input onChange={e=>this.setState({viewMode:!this.state.viewMode})} id="viewMode" type="checkbox" value="Bike"/>
                             뷰모드
