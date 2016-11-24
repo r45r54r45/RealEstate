@@ -512,6 +512,11 @@ class UserUpdateStorePage extends React.Component {
                                         this.selectType('new', 3)
                                     }}/>
                                     <label htmlFor="w_new">월세</label>
+                                    <input id="y_new" name="type" type="radio" onChange={e=> {
+                                        this.mapValue(3, 'newItem', 'type');
+                                        this.selectType('new', 3)
+                                    }}/>
+                                    <label htmlFor="y_new">분양</label>
                                 </div>
                                 <div className="row">
                                     <h4>매물 제목</h4>
@@ -563,7 +568,7 @@ class UserUpdateStorePage extends React.Component {
                                     <input id="ceo_name" type="text"
                                            onChange={e=>this.mapValue(e.target, 'newItem', 'specification')}/>
                                 </div>
-                                <div className="row" style={this.state.new.type !== 2 ? {display: 'none'} : {}}>
+                                <div className="row" style={this.state.new.type !== 2 || this.state.new.type !== 4? {display: 'none'} : {}}>
                                     <h4>매매가</h4>
                                     <input id="ceo_name" type="text"
                                            onChange={e=>this.mapValue(e.target, 'newItem', 'm_price')}/>원
@@ -582,6 +587,11 @@ class UserUpdateStorePage extends React.Component {
                                     <h4>월세</h4>
                                     <input id="ceo_name" type="text"
                                            onChange={e=>this.mapValue(e.target, 'newItem', 'w_price')}/>원
+                                </div>
+                                <div className="row" style={this.state.new.type !== 4 ? {display: 'none'} : {}}>
+                                    <h4>분양가</h4>
+                                    <input id="ceo_name" type="text"
+                                           onChange={e=>this.mapValue(e.target, 'newItem', 'y_price')}/>원
                                 </div>
                                 <div className="row">
                                     <h4>사진</h4>

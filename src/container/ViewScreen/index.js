@@ -329,7 +329,7 @@ class ViewScreen extends React.Component {
                                 <div className="top">
                                     <div>
                                         <div className="title">
-                                            {currentData.type == 1 ? "전세가" : (currentData.type == 2 ? "매매가" : "월세/보증금")}
+                                            {currentData.type == 1 ? "전세가" : (currentData.type == 2 ? "매매가" : (currentData.type == 2 ? "월세/보증금" : "분양가/매매가"))}
                                         </div>
                                         <div className="desc">
                                         <span className="price" dangerouslySetInnerHTML={{__html:getBigPrice(currentData)}}>
@@ -370,7 +370,7 @@ class ViewScreen extends React.Component {
                                                 <div className="info-area">
                                                     <div className="first-row">
                                                         <span
-                                                            className="type">{item.type == 1 ? "전세" : (item.type == 2 ? "매매" : "월세")}</span>
+                                                            className="type">{item.type == 1 ? "전세" : (item.type == 2 ? "매매" : (item.type == 3 ? "월세":"분양"))}</span>
                                                         <span className="title">{item.title}</span>
                                                     </div>
                                                     <div className="next-row">
@@ -429,6 +429,8 @@ function getPrice(item) {
             return item.m_price;
         case 3:
             return item.w_price;
+        case 4:
+            return item.y_price;
     }
 }
 function getBigPrice(item) {
@@ -439,6 +441,8 @@ function getBigPrice(item) {
             return item.m_price+'<span class="residue">만원 </span>';
         case 3:
             return item.w_price+'<span class="residue">만원/</span> '+item.b_price+'<span class="residue">만원 </span>';
+        case 4:
+            return item.y_price+'<span class="residue">만원/</span> '+item.m_price+'<span class="residue">만원 </span>';
     }
 }
 function getDate(time){
