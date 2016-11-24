@@ -482,7 +482,7 @@ class UserUpdateStorePage extends React.Component {
                                        onChange={e=>this.mapValue(e.target, 'basic', 'video_num')}/>
                             </div>
                             <div className="row">
-                                <label htmlFor="phone">동영상 아이디</label>
+                                <label htmlFor="phone">동영상 아이디(<a href="https://vimeo.com" target="_blank">링크</a>)</label>
                                 <input id="phone" type="number" value={this.state.basic.video_id}
                                        onChange={e=>this.mapValue(e.target, 'basic', 'video_id')}/>
                             </div>
