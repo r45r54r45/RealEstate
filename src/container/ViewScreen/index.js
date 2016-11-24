@@ -2,7 +2,26 @@ import React from 'react'
 import './style.scss'
 import Slider from 'react-slick';
 import Vimeo from '@vimeo/player';
-
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
 class ViewScreen extends React.Component {
     constructor() {
         super();
@@ -28,7 +47,7 @@ class ViewScreen extends React.Component {
         console.log("component will mount");
         var _this = this;
         console.log("fetch start");
-        fetch('/view?id=' + localStorage.getItem("userId")).then(dat=>dat.json()).then(data=> {
+        fetch('/view?id=' + getCookie("userId")).then(dat=>dat.json()).then(data=> {
             _this.setState({
                 data: data.list,
                 basic: data.basic
@@ -350,8 +369,8 @@ class ViewScreen extends React.Component {
                     </div>
                     <div className="right-area">
                         <div className="banner-area" onClick={()=> {
-                            localStorage.removeItem('viewMode');
-                            localStorage.removeItem('userType');
+                           setCookie('viewMode','',1);
+                            setCookie('userType','',1);
                             location.reload()
                         }}>
                             매물 현황

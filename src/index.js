@@ -23,7 +23,26 @@ ReactDOM.render(
     ),
     document.getElementById('root')
 );
-
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
 function getUserType() {
     /*
      1: 관리자
@@ -32,11 +51,11 @@ function getUserType() {
      */
     // return 2;
 
-    if (!localStorage.getItem('userType')) {
+    if (getCookie('userType')=="") {
         return 3;
-    } else if (localStorage.getItem('userType') == 'customer') {
+    } else if (getCookie('userType') == 'customer') {
         return 2;
-    } else if (localStorage.getItem('userType') == 'admin') {
+    } else if (getCookie('userType') == 'admin') {
         return 1;
     }
     return 3;
@@ -45,7 +64,7 @@ function getUserType() {
 function getPageType() {
     // return 'VIEW_PAGE';
 
-    if (localStorage.getItem('viewMode')) {
+    if (getCookie('viewMode')!=='') {
         return 'VIEW_PAGE';
     } else {
         return 'ADMIN_PAGE';

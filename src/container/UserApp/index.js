@@ -12,7 +12,7 @@ class UserApp extends React.Component {
         }
     }
     componentWillMount(){
-        fetch('/user?id='+localStorage.getItem("userId")).then(dat=>dat.json()).then((result)=>{
+        fetch('/user?id='+getCookie("userId")).then(dat=>dat.json()).then((result)=>{
             this.setState({
                basic: result.result
             })
@@ -26,7 +26,7 @@ class UserApp extends React.Component {
                     <div className="info-area">
                         <img src={logo} style={{width: '80%'}}/>
                         <h1 id="page-user"><Link to="/">{this.state.basic.store_name}</Link></h1>
-                        <button onClick={e=>{localStorage.removeItem("userType");localStorage.removeItem("userId"); location.href="/";}}>로그아웃</button>
+                        <button onClick={e=>{setCookie("userType",'',1);setCookie("userId",'',1); location.href="/";}}>로그아웃</button>
                     </div>
                 </div>
                 <div className="right-area">
@@ -36,5 +36,24 @@ class UserApp extends React.Component {
         )
     }
 }
-
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
 export default UserApp

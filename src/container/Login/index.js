@@ -10,8 +10,8 @@ class Login extends React.Component{
         this.state={
             viewMode: false,
             saveMode: false,
-            stored_id: localStorage.getItem("stored_id"),
-            stored_pw: localStorage.getItem("stored_pw")
+            stored_id: getCookie("stored_id"),
+            stored_pw: getCookie("stored_pw")
         }
     }
     login(){
@@ -24,12 +24,12 @@ class Login extends React.Component{
             return;
         }
         if(this.state.saveMode===true){
-            localStorage.setItem("stored_id",this.id.value);
-            localStorage.setItem("stored_pw",this.pw.value);
+            setCookie("stored_id",this.id.value,10);
+            setCookie("stored_pw",this.pw.value,10);
         }
         //test code
         if(this.id.value==='admin'&&this.pw.value==='admin'){
-            localStorage.setItem('userType','admin');
+            setCookie('userType','admin',1);
             location.reload();
         }else{
             fetch('/login',{
@@ -43,10 +43,10 @@ class Login extends React.Component{
                 })
             }).then(dat=>dat.json()).then(data=>{
                 if(data.result){
-                    localStorage.setItem('userType','customer');
-                    localStorage.setItem('userId',data.userId.toString());
+                    setCookie('userType','customer',1);
+                    setCookie('userId',data.userId.toString(),1);
                     if(this.state.viewMode===true){
-                        localStorage.setItem('viewMode','true');
+                        setCookie('viewMode','true');
                     }
                     location.reload();
                 }else{
@@ -82,5 +82,25 @@ class Login extends React.Component{
             </div>
         )
     }
+}
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
 }
 export default Login;

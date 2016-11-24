@@ -3,7 +3,26 @@ import './style.scss'
 import ShowHide from '../../component/ShowHide'
 import Loading from 'react-loading-animation';
 
-
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
 class UserUpdateStorePage extends React.Component {
     constructor() {
         super();
@@ -37,12 +56,12 @@ class UserUpdateStorePage extends React.Component {
     }
 
     componentWillMount() {
-        fetch('/item?id=' + localStorage.getItem("userId")).then(dat=>dat.json()).then(data=> {
+        fetch('/item?id=' + getCookie("userId")).then(dat=>dat.json()).then(data=> {
             this.setState({
                 itemList: data.result
             })
         })
-        fetch('/date?id=' + localStorage.getItem("userId")).then(dat=>dat.json()).then(data=> {
+        fetch('/date?id=' +getCookie("userId")).then(dat=>dat.json()).then(data=> {
             this.setState({
                 contract_end: data.result
             })
@@ -72,7 +91,7 @@ class UserUpdateStorePage extends React.Component {
         this.setState({
             loading: true
         })
-        fetch('/item?id=' + localStorage.getItem("userId"), {
+        fetch('/item?id=' + getCookie("userId"), {
             method: "POST",
             body: formDataSerialize(this.state.newItem)
         }).then(dat=>dat.json()).then(result=> {
@@ -108,7 +127,7 @@ class UserUpdateStorePage extends React.Component {
         this.setState({
             loading: true
         })
-        fetch('/user?id=' + localStorage.getItem("userId"), {
+        fetch('/user?id=' + getCookie("userId"), {
             method: "PUT",
             body: formDataSerialize(this.state.basic)
         }).then(dat=>dat.json()).then(result=> {
@@ -167,7 +186,7 @@ class UserUpdateStorePage extends React.Component {
             this.setState({
                 loading: true
             })
-            fetch('/user?id=' + localStorage.getItem("userId")).then(dat=>dat.json()).then((result)=> {
+            fetch('/user?id=' + getCookie("userId")).then(dat=>dat.json()).then((result)=> {
                 this.setState(
                     {
                         current: 'basic',
