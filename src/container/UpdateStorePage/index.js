@@ -393,6 +393,10 @@ class UpdateStorePage extends React.Component {
                                            onChange={this.selectType.bind(this, 'edit', 3)}
                                            checked={this.state.editItem.type == 3}/>
                                     <label htmlFor="w_edit">월세</label>
+                                    <input id="w_edit" name="type" type="radio"
+                                           onChange={this.selectType.bind(this, 'edit', 4)}
+                                           checked={this.state.editItem.type == 4}/>
+                                    <label htmlFor="w_edit">분양</label>
                                 </div>
                                 <div className="row">
                                     <h4>매물 제목</h4>
@@ -444,7 +448,7 @@ class UpdateStorePage extends React.Component {
                                     <input id="ceo_name" value={this.state.editItem.specification} type="text"
                                            onChange={e=>this.mapValue(e.target, 'editItem', 'specification')}/>
                                 </div>
-                                <div className="row" style={this.state.edit.type !== 2 ? {display: 'none'} : {}}>
+                                <div className="row" style={this.state.edit.type !== 2 && this.state.edit.type !== 4? {display: 'none'} : {}}>
                                     <h4>매매가</h4>
                                     <input id="ceo_name" value={this.state.editItem.m_price} type="text"
                                            onChange={e=>this.mapValue(e.target, 'editItem', 'm_price')}/>원
@@ -463,6 +467,11 @@ class UpdateStorePage extends React.Component {
                                     <h4>월세</h4>
                                     <input id="ceo_name" value={this.state.editItem.w_price} type="text"
                                            onChange={e=>this.mapValue(e.target, 'editItem', 'w_price')}/>원
+                                </div>
+                                <div className="row" style={this.state.edit.type !== 4 ? {display: 'none'} : {}}>
+                                    <h4>분양가</h4>
+                                    <input id="ceo_name" value={this.state.editItem.y_price} type="text"
+                                           onChange={e=>this.mapValue(e.target, 'editItem', 'y_price')}/>원
                                 </div>
                                 <div className="row">
                                     <h4>사진 추가</h4>
@@ -659,7 +668,7 @@ class UpdateStorePage extends React.Component {
                                     <input id="ceo_name" type="text"
                                            onChange={e=>this.mapValue(e.target, 'newItem', 'specification')}/>
                                 </div>
-                                <div className="row" style={this.state.new.type !== 2 || this.state.new.type !== 4   ? {display: 'none'} : {}}>
+                                <div className="row" style={this.state.new.type !== 2 && this.state.new.type !== 4   ? {display: 'none'} : {}}>
                                     <h4>매매가</h4>
                                     <input id="ceo_name" type="text"
                                            onChange={e=>this.mapValue(e.target, 'newItem', 'm_price')}/>원
