@@ -283,7 +283,7 @@ class UserUpdateStorePage extends React.Component {
                                 {this.state.itemList.map((item, index)=> {
                                     return (
                                         <li key={index}>
-                                            {item.title} <a onClick={this.deleteItem.bind(this, item.id)}
+                                            [{item.type == 1 ? "전세" : (item.type == 2 ? "매매" : (item.type == 3 ? "월세": "분양"))}] {item.title} <a onClick={this.deleteItem.bind(this, item.id)}
                                                             className="delete">삭제</a> <a className="edit"
                                                                                          onClick={this.editItem.bind(this, {
                                                                                              cancel: undefined,
