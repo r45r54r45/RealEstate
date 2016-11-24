@@ -169,18 +169,25 @@ app.get('/view', function (req, res) {
             var resultArray = [];
             result.forEach(function (item, index) {
                 var itemId = item.id;
-                db.query('select * from Item i where i.id=?', [itemId], function (err, result2) {
-                    db.query('select * from Image where item=?', [itemId], function (err2, result3) {
-                        result3 = result3.map(function (item) {
-                            return "http://104.197.153.50/img/" + item.url;
-                        });
-                        result2[0].images = result3;
-                        resultArray.push(result2[0]);
+                db.query('select i.*, (select count(image.id) from Item i join Image image on image.item= i.id where i.id=?) as count from Item i where i.id=?', [itemId,itemId], function (err, result2) {
+                    if(result2[0].count==0){
                         counter++;
                         if (counter == length) {
                             res.json({list: resultArray, basic: basic})
                         }
-                    })
+                    }else{
+                        db.query('select * from Image where item=?', [itemId], function (err2, result3) {
+                            result3 = result3.map(function (item) {
+                                return "http://104.197.153.50/img/" + item.url;
+                            });
+                            result2[0].images = result3;
+                            resultArray.push(result2[0]);
+                            counter++;
+                            if (counter == length) {
+                                res.json({list: resultArray, basic: basic})
+                            }
+                        })
+                    }
                 });
             })
         });
