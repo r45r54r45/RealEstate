@@ -314,10 +314,10 @@ class UserUpdateStorePage extends React.Component {
                                            onChange={this.selectType.bind(this, 'edit', 3)}
                                            checked={this.state.editItem.type == 3}/>
                                     <label htmlFor="w_edit">월세</label>
-                                    <input id="w_edit" name="type" type="radio"
+                                    <input id="y_edit" name="type" type="radio"
                                            onChange={this.selectType.bind(this, 'edit', 4)}
                                            checked={this.state.editItem.type == 4}/>
-                                    <label htmlFor="w_edit">분양</label>
+                                    <label htmlFor="y_edit">분양</label>
                                 </div>
                                 <div className="row">
                                     <h4>매물 제목</h4>
