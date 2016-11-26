@@ -45,12 +45,10 @@ class Login extends React.Component{
                 if(data.result){
                     setCookie('userType','customer',1);
                     setCookie('userId',data.userId.toString(),1);
-                    // if(this.state.viewMode===true){
-                    //     setCookie('viewMode','true');
-                    // }
-                    var openNewWindow = window.open("about:blank");
-
-                    openNewWindow.location.href = 'http://104.197.153.50/preview?id='+data.userId.toString();
+                    if(this.state.viewMode===true){
+                        var openNewWindow = window.open("about:blank");
+                        openNewWindow.location.href = 'http://104.197.153.50/preview?id='+data.userId.toString();
+                    }
                     location.reload();
                 }else{
                     alert('아이디 비밀번호가 일치하지 않습니다');
