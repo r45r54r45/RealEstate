@@ -92,6 +92,10 @@ function getTemplate() {
             if (getPageType() !== 'VIEW_PAGE') {
                 return (
                     <Router history={browserHistory}>
+                        <Route path="/preview" component={AdminViewTemplate}>
+                            <IndexRoute component={AdminViewScreen}/>
+                            <Route path="*" component={NoMatch}/>
+                        </Route>
                         <Route path="/" component={UserApp}>
                             <IndexRoute component={UserUpdateStorePage}/>
                             <Route path="*" component={NoMatch}/>
