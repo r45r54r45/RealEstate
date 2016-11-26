@@ -48,10 +48,9 @@ class Login extends React.Component{
                     // if(this.state.viewMode===true){
                     //     setCookie('viewMode','true');
                     // }
-                    window.open(
-                        'http://104.197.153.50/preview?id='+data.userId.toString(),
-                        '_blank' // <- This is what makes it open in a new window.
-                    );
+                    var openNewWindow = window.open("about:blank");
+
+                    openNewWindow.location.href = 'http://104.197.153.50/preview?id='+data.userId.toString();
                     location.reload();
                 }else{
                     alert('아이디 비밀번호가 일치하지 않습니다');
