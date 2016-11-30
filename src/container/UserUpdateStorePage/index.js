@@ -53,6 +53,7 @@ class UserUpdateStorePage extends React.Component {
         this.deleteEditItemImage = this.deleteEditItemImage.bind(this);
         this.editBasicSubmit = this.editBasicSubmit.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
+        this.openView=this.openView.bind(this);
     }
 
     componentWillMount() {
@@ -285,7 +286,10 @@ class UserUpdateStorePage extends React.Component {
             })
         }
     }
-
+    openView(){
+        var openNewWindow = window.open("about:blank");
+        openNewWindow.location.href = 'http://104.197.153.50/preview?id='+localStorage.getItem('userId');
+    }
     render() {
         return (
             <Loading isLoading={this.state.loading} style={{marginTop: '100px'}}>
@@ -295,6 +299,7 @@ class UserUpdateStorePage extends React.Component {
                     <ShowHide show={this.state.current !== 'new'}>
                         <button className="newItemButton" onClick={this.newItem}>새 매물</button>
                     </ShowHide>
+                    <button onClick={this.openView} className="newItemButton">기본 정보 수정</button>
                     {this.state.current === 'list' ? (
                         <div className="ItemList">
                             <h3>매물 리스트</h3>
