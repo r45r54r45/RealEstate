@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47a78136-00f7-4972-876e-979897a210d9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/container/UserUpdateStorePage/index.js" afterPath="$PROJECT_DIR$/src/container/UserUpdateStorePage/index.js" />
     </list>
     <ignored path="RealEstate.iws" />
@@ -82,7 +81,7 @@
         <entry file="file://$PROJECT_DIR$/src/container/UserUpdateStorePage/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="301" column="67" selection-start-line="301" selection-start-column="67" selection-end-line="301" selection-end-column="67" />
+              <caret line="301" column="84" selection-start-line="301" selection-start-column="84" selection-end-line="301" selection-end-column="84" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -702,12 +701,12 @@
       <workItem from="1479874841017" duration="5585000" />
       <workItem from="1480069634784" duration="2662000" />
       <workItem from="1480341670172" duration="613000" />
-      <workItem from="1480435244335" duration="603000" />
+      <workItem from="1480435244335" duration="837000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113043000" />
+    <option name="totallyTimeSpent" value="113277000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="52" y="23" width="1628" height="1027" extended-state="6" />
@@ -1131,7 +1130,7 @@
     <entry file="file://$PROJECT_DIR$/src/container/UserUpdateStorePage/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="301" column="67" selection-start-line="301" selection-start-column="67" selection-end-line="301" selection-end-column="67" />
+          <caret line="301" column="84" selection-start-line="301" selection-start-column="84" selection-end-line="301" selection-end-column="84" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>

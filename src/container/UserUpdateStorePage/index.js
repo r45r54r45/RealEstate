@@ -299,7 +299,7 @@ class UserUpdateStorePage extends React.Component {
                     <ShowHide show={this.state.current !== 'new'}>
                         <button className="newItemButton" onClick={this.newItem}>새 매물</button>
                     </ShowHide>
-                    <button onClick={this.openView} className="newItemButton">기본 정보 수정</button>
+                    <button onClick={this.openView} className="newItemButton">뷰모드 열기</button>
                     {this.state.current === 'list' ? (
                         <div className="ItemList">
                             <h3>매물 리스트</h3>
