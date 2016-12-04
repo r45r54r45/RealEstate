@@ -329,7 +329,7 @@ class ViewScreen extends React.Component {
                                 <div className="top">
                                     <div>
                                         <div className="title">
-                                            {currentData.type == 1 ? "전세가" : (currentData.type == 2 ? "매매가" : (currentData.type == 3 ? "월세/보증금": "분양가/매매가"))}
+                                            {currentData.type == 1 ? "전세가" : (currentData.type == 2 ? "매매가" : (currentData.type == 3 ? "보증금/월세": "분양가/매매가"))}
                                         </div>
                                         <div className="desc">
                                         <span className="price" dangerouslySetInnerHTML={{__html:getBigPrice(currentData)}}>
