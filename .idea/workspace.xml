@@ -29,8 +29,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/container/UpdateStorePage/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="396" column="71" selection-start-line="396" selection-start-column="71" selection-end-line="396" selection-end-column="71" />
+            <state relative-caret-position="390">
+              <caret line="398" column="70" selection-start-line="398" selection-start-column="70" selection-end-line="398" selection-end-column="70" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -703,12 +703,12 @@
       <workItem from="1480069634784" duration="2662000" />
       <workItem from="1480341670172" duration="613000" />
       <workItem from="1480435244335" duration="1258000" />
-      <workItem from="1480863241910" duration="502000" />
+      <workItem from="1480863241910" duration="750000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114200000" />
+    <option name="totallyTimeSpent" value="114448000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="52" y="23" width="1628" height="1027" extended-state="6" />
@@ -1132,8 +1132,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/container/UpdateStorePage/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="396" column="71" selection-start-line="396" selection-start-column="71" selection-end-line="396" selection-end-column="71" />
+        <state relative-caret-position="390">
+          <caret line="398" column="70" selection-start-line="398" selection-start-column="70" selection-end-line="398" selection-end-column="70" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
