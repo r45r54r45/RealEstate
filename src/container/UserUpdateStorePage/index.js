@@ -325,21 +325,21 @@ class UserUpdateStorePage extends React.Component {
                                 <div className="row">
                                     <h4>매물 종류</h4>
                                     <input id="j_edit" name="type" type="radio"
-                                           onClick={this.selectType.bind(this, 'edit', 1)}
+                                           onClick={e=>{this.selectType('edit', 1);this.mapValue(1, 'editItem', 'type')}}
                                            checked={this.state.editItem.type == 1}/>
                                     <label htmlFor="j_edit">전세</label>
 
                                     <input id="m_edit" name="type" type="radio"
-                                           onClick={this.selectType.bind(this, 'edit', 2)}
+                                           onClick={e=>{this.selectType('edit', 2);this.mapValue(2, 'editItem', 'type')}}
                                            checked={this.state.editItem.type == 2}/>
                                     <label htmlFor="m_edit">매매</label>
 
                                     <input id="w_edit" name="type" type="radio"
-                                           onClick={this.selectType.bind(this, 'edit', 3)}
+                                           onClick={e=>{this.selectType('edit', 3);this.mapValue(3, 'editItem', 'type')}}
                                            checked={this.state.editItem.type == 3}/>
                                     <label htmlFor="w_edit">월세</label>
                                     <input id="y_edit" name="type" type="radio"
-                                           onClick={this.selectType.bind(this, 'edit', 4)}
+                                           onClick={e=>{this.selectType('edit', 4);this.mapValue(4, 'editItem', 'type')}}
                                            checked={this.state.editItem.type == 4}/>
                                     <label htmlFor="y_edit">분양</label>
                                 </div>
