@@ -394,7 +394,7 @@ class UpdateStorePage extends React.Component {
                                            checked={this.state.editItem.type == 3}/>
                                     <label htmlFor="w_edit">월세</label>
                                     <input id="y_edit" name="type" type="radio"
-                                           onClick={e=>{this.selectType.('edit', 4);this.mapValue({value:4}, 'editItem', 'type')}}
+                                           onClick={e=>{this.selectType('edit', 4);this.mapValue({value:4}, 'editItem', 'type')}}
                                            checked={this.state.editItem.type == 4}/>
                                     <label htmlFor="y_edit">분양</label>
                                 </div>
