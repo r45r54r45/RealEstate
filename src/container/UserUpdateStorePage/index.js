@@ -288,7 +288,7 @@ class UserUpdateStorePage extends React.Component {
     }
     openView(){
         var openNewWindow = window.open("about:blank");
-        openNewWindow.location.href = 'http://104.197.153.50/preview?id='+getCookie("userId");
+        openNewWindow.location.href = 'http://screenview.kr/preview?id='+getCookie("userId");
     }
     render() {
         return (

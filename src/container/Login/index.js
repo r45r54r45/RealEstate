@@ -49,7 +49,7 @@ class Login extends React.Component {
                     setCookie('userId', data.userId.toString(), 1);
                     if (this.state.viewMode === true) {
                         var openNewWindow = window.open("about:blank");
-                        openNewWindow.location.href = 'http://104.197.153.50/preview?id=' + data.userId.toString();
+                        openNewWindow.location.href = 'http://screenview.kr/preview?id=' + data.userId.toString();
                     }
                     location.reload();
                 } else {
