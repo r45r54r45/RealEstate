@@ -124,6 +124,9 @@ app.put('/item', upload.array('image'), function (req, res) {
     var itemId = req.query.id;
     var data = req.body;
     console.log(data);
+
+    res.json(req.body);
+    return;
     req.body.deleteImageList = req.body.deleteImageList || "";
     req.body.deleteImageList.split(',').forEach(function (item, index) {
         db.query('delete from Image where id=?', [item])
