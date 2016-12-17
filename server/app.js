@@ -114,14 +114,14 @@ app.post('/item', upload.array('image'), function (req, res) {
     }
 });
 function toInt(string) {
-    if(string == ''){
+    if(string == ''||string == null){
         return null;
     }else{
         return parseInt(string);
     }
 }
 function toFloat(string) {
-    if(string == ''){
+    if(string == ''||string == null){
         return null;
     }else{
         return parseFloat(string);
