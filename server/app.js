@@ -139,7 +139,7 @@ app.put('/item', upload.array('image'), function (req, res) {
     })
     db.query('update Item set ' +
         ' type=?, title=?, location=?, produced_area=?, real_area=?, floor=?, total_floor=?, room=?, toilet=?, specification=?, available=?, j_price=?, m_price=?, b_price=?, w_price=?, y_price=? ' +
-        ' where id=?', [toInt(data.type), data.title, data.location, toFloat(data.produced_area), toFloat(data.real_area), toInt(data.floor), toInt(data.total_floor), toInt(data.room), toInt(data.toilet), data.specification, data.available, data.j_price || null, data.m_price || null, data.b_price || null, data.w_price || null, data.y_price || null, toInt(itemId)], function (err, result) {
+        ' where id=?', [toInt(data.type), data.title || null, data.location || null, toFloat(data.produced_area) || null, toFloat(data.real_area) || null, toInt(data.floor) || null, toInt(data.total_floor) || null, toInt(data.room) || null, toInt(data.toilet) || null, data.specification || null, data.available || null, data.j_price || null, data.m_price || null, data.b_price || null, data.w_price || null, data.y_price || null, toInt(itemId)], function (err, result) {
         if (err) {
             res.json(err);
         }
