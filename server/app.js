@@ -114,10 +114,18 @@ app.post('/item', upload.array('image'), function (req, res) {
     }
 });
 function toInt(string) {
-    return parseInt(string);
+    if(string == ''){
+        return null;
+    }else{
+        return parseInt(string);
+    }
 }
 function toFloat(string) {
-    return parseFloat(string);
+    if(string == ''){
+        return null;
+    }else{
+        return parseFloat(string);
+    }
 }
 app.put('/item', upload.array('image'), function (req, res) {
     var db = require('./mysql');
